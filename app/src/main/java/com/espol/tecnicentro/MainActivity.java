@@ -10,8 +10,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
+import com.espol.tecnicentro.Alejandro.MainActivity_Proveedores;
+import com.espol.tecnicentro.Alejandro.MainActivity_Tecnicos;
+import com.espol.tecnicentro.Andrea.MainActivity_FacturaEmpresarial;
+import com.espol.tecnicentro.Andrea.MainActivity_ReporteServicio;
+import com.espol.tecnicentro.Andrea.MainActivity_ReporteTecnico;
+import com.espol.tecnicentro.Pablo.App.MainActivity_Orden;
 import com.espol.tecnicentro.Pablo.App.MainActivity_Servicio;
-import com.espol.tecnicentro.Pablo.App.agg_servicio;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,12 +32,50 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button mainbtn = findViewById(R.id.mainbtn);
 
-        mainbtn.setOnClickListener(view -> {
+
+        Button btnMainServ = findViewById(R.id.btnMainServ);
+        btnMainServ.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Servicio.class);
             startActivity(intent);
         });
+
+        Button btnMainClient = findViewById(R.id.btnMainClient);
+        btnMainClient.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_Clientes.class);
+            startActivity(intent);
+        });
+        Button btnMainProv = findViewById(R.id.btnMainProv);
+        btnMainProv.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_Proveedores.class);
+            startActivity(intent);
+        });
+        Button btnMainTec = findViewById(R.id.btnMainTec);
+        btnMainTec.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_Tecnicos.class);
+            startActivity(intent);
+        });
+        Button btnMainOrden = findViewById(R.id.btnMainOrden);
+        btnMainOrden.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_Orden.class);
+            startActivity(intent);
+        });
+        Button btnMainFact = findViewById(R.id.btnMainFact);
+        btnMainFact.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_FacturaEmpresarial.class);
+            startActivity(intent);
+        });
+        Button btnMainRServicio = findViewById(R.id.btnMainRServicio);
+        btnMainRServicio.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_ReporteServicio.class);
+            startActivity(intent);
+        });
+        Button btnMainRTec = findViewById(R.id.btnMainRTec);
+        btnMainRTec.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity_ReporteTecnico.class);
+            startActivity(intent);
+        });
+
     }
 
 

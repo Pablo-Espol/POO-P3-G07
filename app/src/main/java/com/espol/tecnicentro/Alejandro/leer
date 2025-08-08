@@ -1,2 +1,6 @@
-Alejandro en sus carpetas deberan agregar sus adaptadores, y sus activities
+Alejandro en sus carpetas deberan agregar sus adaptadores, y sus activities.
+El MainActivity.java será el arvicho principal de todos, donde se veran todas las opciones,
+asi que deberan crear su MainActivity de la parte que les tocó, como en mi caso yo cree el
+MainActivity_Servicio
+
 (pueden borrar este archivo una vez leido)

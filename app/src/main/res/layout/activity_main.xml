@@ -7,28 +7,129 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+  <Button
+      android:id="@+id/btnMainClient"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="80dp"
+      android:drawableTop="@drawable/icon_persona"
+      android:text="CLIENTES"
+      app:layout_constraintStart_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+  <Button
+      android:id="@+id/btnMainProv"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginTop="80dp"
+      android:layout_marginEnd="30dp"
+      android:drawableTop="@drawable/icon_proveedor"
+      android:text="PROVEEDOR"
+      app:layout_constraintEnd_toStartOf="@+id/guideline6"
+      app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+  <Button
+      android:id="@+id/btnMainTec"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="60dp"
+      android:drawableTop="@drawable/icon_tecnico"
+      android:text="TÉCNICO"
+      app:layout_constraintStart_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainClient" />
+
+  <Button
+      android:id="@+id/btnMainServ"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginTop="60dp"
+      android:layout_marginEnd="30dp"
+      android:drawableTop="@drawable/icon_servicio"
+      android:text="SERVICIOS"
+      app:layout_constraintEnd_toStartOf="@+id/guideline6"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainProv" />
+
+  <Button
+      android:id="@+id/btnMainOrden"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="60dp"
+      android:drawableTop="@drawable/icon_orden"
+      android:text="ORDEN"
+      app:layout_constraintStart_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainTec" />
+
+  <Button
+      android:id="@+id/btnMainFact"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginTop="60dp"
+      android:layout_marginEnd="30dp"
+      android:drawableTop="@drawable/icon_factura"
+      android:text="FACTURA"
+      app:layout_constraintEnd_toStartOf="@+id/guideline6"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainServ" />
+
+  <Button
+      android:id="@+id/btnMainRServicio"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="60dp"
+      android:drawableTop="@drawable/icon_rservicio"
+      android:text="R. SERVICIO"
+      app:layout_constraintBottom_toTopOf="@+id/guideline7"
+      app:layout_constraintStart_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainOrden"
+      app:layout_constraintVertical_bias="0.0" />
+
+  <Button
+      android:id="@+id/btnMainRTec"
+      android:layout_width="130dp"
+      android:layout_height="76dp"
+      android:layout_marginTop="60dp"
+      android:layout_marginEnd="30dp"
+      android:drawableTop="@drawable/icon_rtecnico"
+      android:text="R. TECNICO"
+      app:layout_constraintBottom_toTopOf="@+id/guideline7"
+      app:layout_constraintEnd_toStartOf="@+id/guideline6"
+      app:layout_constraintTop_toBottomOf="@+id/btnMainFact"
+      app:layout_constraintVertical_bias="0.0" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_begin="32dp" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline6"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_end="30dp" />
+
   <TextView
       android:id="@+id/textView2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="160dp"
-      android:text="HOLA MUNDO"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.668" />
+      android:layout_marginTop="48dp"
+      android:text="TECNICENTRO"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toStartOf="@+id/guideline6"
+      app:layout_constraintHorizontal_bias="0.49"
+      app:layout_constraintStart_toStartOf="@+id/guideline5"
+      app:layout_constraintTop_toTopOf="parent" />
 
-  <Button
-      android:id="@+id/mainbtn"
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline7"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="68dp"
-      android:text="Button"
-      app:layout_constraintBottom_toTopOf="@+id/textView2"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.524"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="1.0" />
+      android:orientation="horizontal"
+      app:layout_constraintGuide_end="30dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
