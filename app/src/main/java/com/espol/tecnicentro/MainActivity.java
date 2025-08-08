@@ -1,5 +1,6 @@
 package com.espol.tecnicentro;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -65,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, MainActivity_FacturaEmpresarial.class);
             startActivity(intent);
         });
-        Button btnMainRServicio = findViewById(R.id.btnMainRServicio);
-        btnMainRServicio.setOnClickListener(view -> {
+        Button btnMainRServ = findViewById(R.id.btnMainRServ);
+        btnMainRServ.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_ReporteServicio.class);
             startActivity(intent);
         });
