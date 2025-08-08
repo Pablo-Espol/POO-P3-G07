@@ -20,12 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".list_servicio"
-            android:exported="false" />
-        <activity
-            android:name=".edit_servicio"
-            android:exported="false" />
+
         <activity
             android:name=".Pablo.App.agg_servicio"
             android:exported="false" />
