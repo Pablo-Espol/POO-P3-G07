@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.R;
@@ -18,17 +19,11 @@ import java.util.List;
 public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHolder> {
 
     private  List<Servicio> listaServicios;
-    private Context context;
-    private Activity activity;
 
+    private Activity activity;
 
     private  OnServicioEditClickListener listener;
 
-
-    public ServicioAdapter(List<Servicio> listaServicios, Activity activity) {
-        this.listaServicios = listaServicios;
-        this.activity=activity;
-    }
 
     public ServicioAdapter(List<Servicio> listaServicios, Activity activity, OnServicioEditClickListener listener) {
         this.listaServicios = listaServicios;

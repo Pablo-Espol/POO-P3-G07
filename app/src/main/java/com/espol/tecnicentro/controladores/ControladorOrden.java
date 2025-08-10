@@ -5,7 +5,8 @@ import java.util.*;
 import com.espol.tecnicentro.modelo.*;
 
 public class ControladorOrden extends ControladorBase {
-    
+
+
     public ControladorOrden(ControladorBase base) {
         this.listClient = base.getListClient();
         this.listTecni = base.getListTecni();

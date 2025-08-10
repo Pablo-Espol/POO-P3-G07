@@ -1,6 +1,8 @@
 package com.espol.tecnicentro.modelo;
 
-public class DetalleServicio {
+import java.io.Serializable;
+
+public class DetalleServicio implements Serializable {
     private int cantidad;
     private Servicio servicio;
     private double subtotal;

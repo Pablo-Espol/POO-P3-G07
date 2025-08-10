@@ -1,16 +1,19 @@
 package com.espol.tecnicentro.modelo;
+import com.espol.tecnicentro.controladores.ControladorBase;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
 
-public class OrdenServicio {
+public class OrdenServicio implements Serializable {
     private Cliente cliente;
     private Tecnico tecnico;
     private LocalDate fechaServicio;
     private String placaVehiculo;
     private double totalOrden;
     private TipoVehiculo tipoVehiculo;
-    private ArrayList <DetalleServicio> servicios;
+    private ArrayList <DetalleServicio> listaOrdeServicios;
 
 
     public OrdenServicio(){}
@@ -32,7 +35,7 @@ public class OrdenServicio {
         this.placaVehiculo = placaVehiculo;
         this.totalOrden = totalOrden;
         this.tipoVehiculo = tipoVehiculo;
-        this.servicios = servicios;
+        this.listaOrdeServicios = servicios;
     }
     
     public Cliente getCliente() {
@@ -87,21 +90,22 @@ public class OrdenServicio {
 
 
     public ArrayList<DetalleServicio> getServicios() {
-        return servicios;
+        return listaOrdeServicios;
     }
 
 
     public void setServicios(ArrayList<DetalleServicio> servicios) {
-        this.servicios = servicios;
+        this.listaOrdeServicios = servicios;
     }
 
     @Override
     public String toString() {
         return "OrdenServicio [cliente=" + cliente + ", tecnico=" + tecnico + ", fechaServicio=" + fechaServicio
                 + ", placaVehiculo=" + placaVehiculo + ", totalOrden=" + totalOrden + ", tipoVehiculo=" + tipoVehiculo
-                + ", servicios=" + servicios + "]";
+                + ", servicios=" + listaOrdeServicios + "]";
     }
-    
+
+
     
 
 

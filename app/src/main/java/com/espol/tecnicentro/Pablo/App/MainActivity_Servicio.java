@@ -25,15 +25,15 @@ import java.util.ArrayList;
 public class MainActivity_Servicio extends AppCompatActivity implements ServicioAdapter.OnServicioEditClickListener, EditarServicioDialogFragment.OnServicioEditadoListener{
     private RecyclerView recyclerView;
     private ServicioAdapter adapter;
-
     private ArrayList<Servicio> listaServicios;
 
+    //parte principal de la pantalla
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_servicio);
-
+        //cargar datos
         cargarDatos();
 
 
@@ -47,7 +47,7 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
         Button btnAggServ = findViewById(R.id.btnAggServ);
 
         btnAggServ.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity_Servicio.this, agg_servicio.class);
+            Intent intent = new Intent(MainActivity_Servicio.this, Agg_servicio.class);
             startActivity(intent);
         });
 
@@ -94,7 +94,7 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
     public void onResume() {
         super.onResume();
         llenarLista();
-        Log.d("AppEmpleados", "En onResume");//muestra la lista en el log
+        Log.d("AppServicio", "En onResume");//muestra la lista en el log
 
     }
 
