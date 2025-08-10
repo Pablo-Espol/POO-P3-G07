@@ -19,7 +19,7 @@ import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
 
-public class agg_servicio extends AppCompatActivity {
+public class Agg_servicio extends AppCompatActivity {
 
 
     @Override

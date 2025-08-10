@@ -42,4 +42,5 @@ public class agg_cliente extends AppCompatActivity {
         controladorCliente = new ControladorCliente(new ControladorBase());
 
 
+    }
 }
