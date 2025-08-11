@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
 import com.espol.tecnicentro.Alejandro.MainActivity_Proveedores;
-import com.espol.tecnicentro.Alejandro.MainActivity_Tecnicos;
+import com.espol.tecnicentro.Alejandro.MainActivity_Tecnico;
 import com.espol.tecnicentro.Andrea.MainActivity_FacturaEmpresarial;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteServicio;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteTecnico;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Button btnMainTec = findViewById(R.id.btnMainTec);
         btnMainTec.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity_Tecnicos.class);
+            Intent intent = new Intent(MainActivity.this, MainActivity_Tecnico.class);
             startActivity(intent);
         });
         Button btnMainOrden = findViewById(R.id.btnMainOrden);

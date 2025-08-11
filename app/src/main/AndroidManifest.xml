@@ -30,13 +30,19 @@
             android:name=".Andrea.MainActivity_FacturaEmpresarial"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.MainActivity_Tecnicos"
+            android:name=".Alejandro.MainActivity_Tecnico"
             android:exported="false" />
         <activity
             android:name=".Alejandro.MainActivity_Proveedores"
             android:exported="false" />
         <activity
             android:name=".Alejandro.MainActivity_Clientes"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Agg_Cliente"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Agg_Tecnico"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -59,6 +65,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -1,6 +1,6 @@
 package com.espol.tecnicentro.Alejandro.adapters;
 import android.app.Activity;
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import java.util.List;
 
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHolder>{
     private List<Cliente> clienteList;
-    private Context context;
     private Activity activity;
     private OnClienteEditClickListener listener;
 
@@ -28,23 +27,24 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIdentificacion, tvNombre, tvTelefono, tvDireccion;
-        Button btnEditar;
+        TextView idCliente,nombre,direccion,phone,tipocliente;
+        Button btneditClient;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvIdentificacion = itemView.findViewById(R.id.editTextPhone);   // tu id de identificación
-            tvNombre = itemView.findViewById(R.id.editTextText5);          // tu id de nombre
-            tvTelefono = itemView.findViewById(R.id.editTextPhone2);       // tu id de teléfono
-            tvDireccion = itemView.findViewById(R.id.editTextText6);       // tu id de dirección
-            btnEditar = itemView.findViewById(R.id.button);                // botón guardar (o crea otro botón "editar" para fila)
+            idCliente = itemView.findViewById(R.id.idCliente);   // tu id de identificación
+            nombre = itemView.findViewById(R.id.nombre);          // tu id de nombre
+            direccion= itemView.findViewById(R.id.direccion);       // tu id de teléfono
+            phone = itemView.findViewById(R.id.phone);// tu id de dirección
+            btneditClient = itemView.findViewById(R.id.btneditClient);
+            tipocliente= itemView.findViewById(R.id.tipocliente);// botón guardar (o crea otro botón "editar" para fila)
         }
     }
 
     @Override
     public ClienteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_main_clientes, parent, false); // reemplaza con tu layout de fila
+                .inflate(R.layout.item_cliente, parent, false); // reemplaza con tu layout de fila
         return new ViewHolder(vista);
     }
 
@@ -52,12 +52,14 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Cliente cliente = clienteList.get(position);
 
-        holder.tvIdentificacion.setText(cliente.getIdentificacion());
-        holder.tvNombre.setText(cliente.getNombre());
-        holder.tvTelefono.setText(cliente.getTelefono());
-        holder.tvDireccion.setText(cliente.getDireccion());
+        holder.idCliente.setText("Identificacion: " + cliente.getIdentificacion());
+        holder.nombre.setText("Nombre: "+ cliente.getNombre());
+        holder.phone.setText("Telefono: "+cliente.getTelefono());
+        holder.direccion.setText("Direccion: "+cliente.getDireccion());
 
-        holder.btnEditar.setOnClickListener(v -> {
+        holder.tipocliente.setText("Tipo Cliente: "+cliente.getTipoCliente().toString());
+
+        holder.btneditClient.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onEditClick(cliente, position);
             }
@@ -72,4 +74,5 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     public interface OnClienteEditClickListener {
         void onEditClick(Cliente cliente, int position);
     }
+
 }

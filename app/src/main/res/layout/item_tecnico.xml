@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/idTecnico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Identificacion" />
+
+        <TextView
+            android:id="@+id/nombreTec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre" />
+
+        <TextView
+            android:id="@+id/phoneTec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telefono" />
+
+        <TextView
+            android:id="@+id/especialidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Especialidad" />
+
+        <Button
+            android:id="@+id/btneditTecnico"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:text="Editar" />
+
+        <Button
+            android:id="@+id/btneelimTec"
+            android:layout_width="144dp"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:text="Eliminar" />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
