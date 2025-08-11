@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Alejandro.MainActivity_Clientes">
 
     <TextView
         android:id="@+id/textView16"
@@ -67,31 +69,58 @@
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="30dp"
         android:text="Descripcion"
         android:textSize="15dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText4"
-        tools:layout_editor_absoluteX="53dp" />
+        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
 
     <EditText
         android:id="@+id/editTextTextMultiLine2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="1dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/textView27"
-        tools:layout_editor_absoluteX="52dp" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextText4"
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="1dp"
         android:backgroundTint="@android:color/holo_red_dark"
         android:text="Guardar"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="496dp" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextPhone6"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhone6" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Telefono"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+
+    <EditText
+        android:id="@+id/editTextPhone6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
