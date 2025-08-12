@@ -13,6 +13,8 @@ public class ControladorBase {
     protected ArrayList<OrdenServicio> listOrden;
     protected ArrayList<Insumo> listInsumosFaltantes;
 
+    private static ControladorBase instance;
+
     public ControladorBase() {
         listClient = new ArrayList<>();
         listTecni = new ArrayList<>();
@@ -20,6 +22,14 @@ public class ControladorBase {
         listService = new ArrayList<>();
         listOrden = new ArrayList<>();
         listInsumosFaltantes = new ArrayList<>();
+        inicializarApp();
+    }
+
+    public static synchronized ControladorBase getInstance() {
+        if (instance == null) {
+            instance = new ControladorBase();
+        }
+        return instance;
     }
 
     // Getters para acceso a las listas
@@ -30,6 +40,13 @@ public class ControladorBase {
     public ArrayList<OrdenServicio> getListOrden() { return listOrden; }
     public ArrayList<Insumo> getListInsumosFaltantes() { return listInsumosFaltantes; }
 
+    public void setListClient(ArrayList<Cliente> listClient) {this.listClient = listClient;}
+    public void setListTecni(ArrayList<Tecnico> listTecni) {this.listTecni = listTecni;}
+    public void setListSuplier(ArrayList<Proveedor> listSuplier) {this.listSuplier = listSuplier;}
+    public void setListService(ArrayList<Servicio> listService) {this.listService = listService;}
+    public void setListOrden(ArrayList<OrdenServicio> listOrden) {this.listOrden = listOrden;}
+    public void setListInsumosFaltantes(ArrayList<Insumo> listInsumosFaltantes) {this.listInsumosFaltantes = listInsumosFaltantes;}
+
     // Métodos utilitarios comunes
     public double calcularTotalOrden(ArrayList<DetalleServicio> detalles) {
         double total = 0.0;
@@ -38,6 +55,7 @@ public class ControladorBase {
         }
         return total;
     }
+
 
     public void inicializarApp() {
         // Inicialización de datos (mismo código que tenías)
@@ -81,6 +99,8 @@ public class ControladorBase {
         listOrden.add(new OrdenServicio(listClient.get(2), listTecni.get(1), LocalDate.of(2025, 3, 1), "ABB787", calcularTotalOrden(listDetalle2), TipoVehiculo.VEHICULO, listDetalle2));
         listOrden.add(new OrdenServicio(listClient.get(3), listTecni.get(1), LocalDate.of(2024, 12, 25), "ABB788", calcularTotalOrden(listDetalles4), TipoVehiculo.VEHICULO, listDetalles4));
     }
+
+
 }
     
 

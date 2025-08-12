@@ -30,8 +30,6 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_orden);
-        controladorBase = new ControladorBase();
-        controladorBase.inicializarApp();
 
         llenarLista();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -66,7 +64,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
 
 
 
-        ordenAdapter = new OrdenAdapter(controladorBase.getListOrden(),this,this);
+        ordenAdapter = new OrdenAdapter(ControladorBase.getInstance().getListOrden(), this,this);
         recyclerViewOrden.setAdapter(ordenAdapter);
     }
 

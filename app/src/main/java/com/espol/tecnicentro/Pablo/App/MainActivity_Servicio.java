@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.Pablo.adapters.ServicioAdapter;
+import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_servicio);
+
         //cargar datos
         cargarDatos();
 

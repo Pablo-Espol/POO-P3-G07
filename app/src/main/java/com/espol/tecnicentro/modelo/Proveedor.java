@@ -4,11 +4,13 @@
  */
 package com.espol.tecnicentro.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fmalu
  */
-public class Proveedor extends Personal {
+public class Proveedor extends Personal implements Serializable {
     private String descripcion;
     
     public Proveedor(String identificacion, String nombre, String telefono, String descripcion) {

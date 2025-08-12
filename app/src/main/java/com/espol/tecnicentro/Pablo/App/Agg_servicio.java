@@ -15,12 +15,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.R;
+import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
 
 public class Agg_servicio extends AppCompatActivity {
-
+    private ArrayList<Servicio> listaPrincipal= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +77,11 @@ public class Agg_servicio extends AppCompatActivity {
 
         try {
 
-            listaServicios.add(nuevoServicio);
-            Log.d("AppServicios", nuevoServicio.toString());
 
-            Servicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaServicios);
+            Log.d("AppServicios", nuevoServicio.toString());
+            listaPrincipal= ControladorBase.getInstance().getListService();
+            listaPrincipal.add(nuevoServicio);
+            Servicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
             Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("AppServicio", "Error al guardar datos: " + e.getMessage());

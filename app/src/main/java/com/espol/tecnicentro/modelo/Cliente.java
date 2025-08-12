@@ -1,11 +1,13 @@
 
 package com.espol.tecnicentro.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fmalu
  */
-public class Cliente extends Personal {
+public class Cliente extends Personal implements Serializable {
     private TipoCliente tipoCliente;
 
     public Cliente(String identificacion,String nombre,String telefono,String direccion,TipoCliente tipoCliente) {

@@ -4,11 +4,13 @@
  */
 package com.espol.tecnicentro.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fmalu
  */
-public class Tecnico extends Personal {
+public class Tecnico extends Personal implements Serializable {
     private String especialidad;
 
     public Tecnico (String identificacion){
