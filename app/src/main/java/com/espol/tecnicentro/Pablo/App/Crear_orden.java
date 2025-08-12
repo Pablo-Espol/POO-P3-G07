@@ -29,7 +29,6 @@ import com.espol.tecnicentro.modelo.Servicio;
 import com.espol.tecnicentro.modelo.Tecnico;
 import com.espol.tecnicentro.modelo.TipoCliente;
 import com.espol.tecnicentro.modelo.TipoVehiculo;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -149,7 +148,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         });
 
         //Agregar servicio a la lista
-        Button btnAgServ = findViewById(R.id.btnAgServ);
+        Button btnAgServ = findViewById(R.id.btnAgProv);
 
         btnAgServ.setOnClickListener(view -> {
 

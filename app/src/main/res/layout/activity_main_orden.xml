@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:fontFamily="sans-serif"
-            android:text="Lista de Ordenes"
+            android:text="@string/lista_de_ordenes_title"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:background="@drawable/custom_button"
-            android:text="Crear"
+            android:text="@string/crear_orden"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

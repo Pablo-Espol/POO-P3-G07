@@ -54,7 +54,7 @@ public class Crear_Orden_Adapter extends RecyclerView.Adapter<Crear_Orden_Adapte
         DetalleServicio DServicio = listaDetalleServicio.get(position);
         holder.tvServicioSel.setText(DServicio.getServicio().getNombre());
         holder.tvCantidadServ.setText("Cantidad: "+ DServicio.getCantidad());
-        holder.tvSubtotalServ.setText("Subtotal: " + DServicio.getSubtotal());
+        holder.tvSubtotalServ.setText("Subtotal: $" + DServicio.getSubtotal());
 
         // Manejar el clic en el botón de Mas detalles
 
