@@ -39,11 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Especialidad" />
 
-        <Button
-            android:id="@+id/btneditTecnico"
-            android:layout_width="144dp"
-            android:layout_height="wrap_content"
-            android:text="Editar" />
+
 
         <Button
             android:id="@+id/btneelimTec"

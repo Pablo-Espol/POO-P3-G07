@@ -1,4 +1,5 @@
 package com.espol.tecnicentro.Alejandro.adapters;
+
 import android.app.Activity;
 
 import android.view.LayoutInflater;
@@ -7,72 +8,79 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.espol.tecnicentro.Alejandro.ConfirmarEliminarTecnicoDialogFragment;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.Tecnico;
 
 import java.util.List;
 
-public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.ViewHolder>{
+public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.ViewHolder> {
     private List<Tecnico> tecnicoList;
     private Activity activity;
     private OnTecnicoEditClickListener listener;
 
-    public TecnicoAdapter(List<Tecnico> tecnicoList, Activity activity, TecnicoAdapter.OnTecnicoEditClickListener listener) {
+    public TecnicoAdapter(List<Tecnico> tecnicoList, Activity activity, OnTecnicoEditClickListener listener) {
         this.tecnicoList = tecnicoList;
         this.activity = activity;
         this.listener = listener;
     }
 
     public interface OnTecnicoEditClickListener {
-        void onEditClick(Tecnico tecnico, int position); // Asegúrate que los parámetros coincidan con lo que necesitas
+        void onEditClick(Tecnico tecnico, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView idTecnico,nombreTec,phoneTec,especialidad;
-        Button btneditTecnico,btneelimTec ;
+        TextView idTecnico, nombreTec, phoneTec, especialidad;
+        Button  btneelimTec;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            idTecnico = itemView.findViewById(R.id.idTecnico);   // tu id de identificación
-            nombreTec = itemView.findViewById(R.id.nombreTec);          // tu id de nombre
-            phoneTec= itemView.findViewById(R.id.phoneTec);       // tu id de teléfono
-            especialidad = itemView.findViewById(R.id.especialidad);// tu id de dirección
-            btneditTecnico = itemView.findViewById(R.id.btneditTecnico);
-            btneelimTec = itemView.findViewById(R.id.btneelimTec);// botón guardar (o crea otro botón "editar" para fila)
+            idTecnico = itemView.findViewById(R.id.idTecnico);
+            nombreTec = itemView.findViewById(R.id.nombreTec);
+            phoneTec = itemView.findViewById(R.id.phoneTec);
+            especialidad = itemView.findViewById(R.id.especialidad);
+
+            btneelimTec = itemView.findViewById(R.id.btneelimTec);
         }
     }
+
     @Override
     public TecnicoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_tecnico, parent, false); // reemplaza con tu layout de fila
+                .inflate(R.layout.item_tecnico, parent, false);
         return new ViewHolder(vista);
     }
+
     @Override
     public void onBindViewHolder(TecnicoAdapter.ViewHolder holder, int position) {
         Tecnico tecnico = tecnicoList.get(position);
 
-        holder.idTecnico.setText("Identificacion: " + tecnico.getIdentificacion());
-        holder.nombreTec.setText("Nombre: "+ tecnico.getNombre());
-        holder.phoneTec.setText("Telefono: "+tecnico.getTelefono());
-        holder.especialidad.setText("Direccion: "+tecnico.getEspecialidad());
-        holder.btneditTecnico.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onEditClick(tecnico, holder.getAdapterPosition());
-            }
+        holder.idTecnico.setText("Identificación: " + tecnico.getIdentificacion());
+        holder.nombreTec.setText("Nombre: " + tecnico.getNombre());
+        holder.phoneTec.setText("Teléfono: " + tecnico.getTelefono());
+        holder.especialidad.setText("Especialidad: " + tecnico.getEspecialidad());
+
+
+        // Botón Eliminar
+        holder.btneelimTec.setOnClickListener(v -> {
+            ConfirmarEliminarTecnicoDialogFragment dialog = ConfirmarEliminarTecnicoDialogFragment
+                    .newInstance(tecnico, holder.getAdapterPosition());
+
+            dialog.setOnTecnicoEliminarListener(pos -> {
+                tecnicoList.remove(pos);
+                notifyItemRemoved(pos);
+                notifyItemRangeChanged(pos, tecnicoList.size());
+            });
+
+            dialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "ConfirmarEliminarTecnico");
         });
-
-
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        return tecnicoList != null ? tecnicoList.size() : 0; // Buena práctica añadir esto
+        return tecnicoList != null ? tecnicoList.size() : 0;
     }
 }

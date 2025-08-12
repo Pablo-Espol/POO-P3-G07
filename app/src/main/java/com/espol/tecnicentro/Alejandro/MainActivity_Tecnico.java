@@ -25,6 +25,8 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
     private RecyclerView recyclerViewTecnico;
     private TecnicoAdapter tecnicoAdapter;
     private ControladorBase control;
+    private Tecnico tecnico;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
         setContentView(R.layout.activity_main_tecnicos);
         control = new ControladorBase();
         control.inicializarApp();
+
         llenarLista();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -44,8 +47,14 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
 
         buttonaggTec.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity_Tecnico.this, Agg_Tecnico.class);
-            startActivity(intent);
-        });}
+            startActivityForResult(intent, 1);
+
+
+        });
+
+    }
+
+
 
 
     private void llenarLista(){
@@ -65,13 +74,25 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
     @Override
     public void onEditClick(Tecnico tecnico, int position){
 
+
     }
     @Override
     public void onResume(){
         super.onResume();
         llenarLista();
-        Log.d("AppTecnicos", "En onResume");//muestra la lista en el log
 
+        Log.d("AppTecnicos", "En onResume");//muestra la lista en el log
+        tecnicoAdapter.notifyDataSetChanged();
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // El nuevo técnico fue agregado, actualizamos la lista
+            llenarLista();
+            tecnicoAdapter.notifyDataSetChanged();
+        }
     }
 
 
