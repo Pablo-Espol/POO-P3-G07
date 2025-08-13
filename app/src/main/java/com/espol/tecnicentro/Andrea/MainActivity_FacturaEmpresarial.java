@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import com.espol.tecnicentro.modelo.TipoCliente;
 
 public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
 
@@ -30,7 +33,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
     private ControladorBase base;
     private ControladorFactura controladorFactura;
 
-    // Fuente de datos para el listado (por ahora usamos las órdenes)
+
     private final List<OrdenServicio> facturasUi = new ArrayList<>();
 
     @Override
@@ -38,46 +41,77 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_factura_empresarial);
 
-        // 1) Inicializar controladores y datos en memoria
+
         base = new ControladorBase();
         base.inicializarApp();
         controladorFactura = new ControladorFactura(base);
 
-
-        recycler   = findViewById(R.id.recyclerFacturas);
+        // UI
+        recycler = findViewById(R.id.recyclerFacturas);
         btnGenerar = findViewById(R.id.btnGenerarFactura);
-
         recycler.setLayoutManager(new LinearLayoutManager(MainActivity_FacturaEmpresarial.this));
 
-        // Fuente de datos inicial órdenes existentes
-        //    Si luego guardan "facturas" reales, aquí se reemplazan.
-        facturasUi.clear();
-        facturasUi.addAll(base.getListOrden());
 
-        // Ordenar por fecha DESC (más recientes primero)
+        facturasUi.clear();
+
+
+        Map<String, OrdenServicio> mapa = new HashMap<>();
+        for (OrdenServicio o : base.getListOrden()) {
+
+            if (o.getCliente().getTipoCliente() != TipoCliente.EMPRESARIAL) continue;
+
+            String key = o.getCliente().getIdentificacion() + "-" +
+                    o.getFechaServicio().getYear() + "-" +
+                    o.getFechaServicio().getMonthValue();
+
+            OrdenServicio agg = mapa.get(key);
+            if (agg == null) {
+                agg = new OrdenServicio();
+                agg.setCliente(o.getCliente());
+                agg.setFechaServicio(o.getFechaServicio()); // fecha más reciente del grupo
+                agg.setTotalOrden(o.getTotalOrden());       // iniciamos acumulado
+                mapa.put(key, agg);
+            } else {
+                // Acumular
+                agg.setTotalOrden(agg.getTotalOrden() + o.getTotalOrden());
+                //  fecha más reciente como "fecha de creación"
+                if (o.getFechaServicio() != null && agg.getFechaServicio() != null
+                        && o.getFechaServicio().isAfter(agg.getFechaServicio())) {
+                    agg.setFechaServicio(o.getFechaServicio());
+                }
+            }
+        }
+
+        // +$50
+        for (OrdenServicio os : mapa.values()) {
+            if (os.getCliente() != null && os.getCliente().getTipoCliente() == TipoCliente.EMPRESARIAL) {
+                os.setTotalOrden(os.getTotalOrden() + 50.0);
+            }
+        }
+
+
+        facturasUi.addAll(mapa.values());
+
+
         Collections.sort(facturasUi, new Comparator<OrdenServicio>() {
             @Override
             public int compare(OrdenServicio o1, OrdenServicio o2) {
                 if (o1.getFechaServicio() == null && o2.getFechaServicio() == null) return 0;
-                if (o1.getFechaServicio() == null) return 1;   // nulos al final
+                if (o1.getFechaServicio() == null) return 1;
                 if (o2.getFechaServicio() == null) return -1;
-                // invertido para descendente
                 return o2.getFechaServicio().compareTo(o1.getFechaServicio());
             }
         });
 
-        // adapter
         adapter = new FacturaAdapter(facturasUi);
         recycler.setAdapter(adapter);
 
-        // se abrirá la pantalla de generación
-        //btnGenerar.setOnClickListener(v -> {
-            // TODO: crea esta Activity y su layout (la vemos después)
-           // Intent i = new Intent(
-             //       MainActivity_FacturaEmpresarial.this,
-              //      GenerarFacturaActivity.class
-        //    );
-         //   startActivity(i);
-      //  });
+        // boton a Generar Factura
+        btnGenerar.setOnClickListener(v -> {
+            startActivity(new Intent(
+                    MainActivity_FacturaEmpresarial.this,
+                    GenerarFacturaActivity.class
+            ));
+        });
     }
 }

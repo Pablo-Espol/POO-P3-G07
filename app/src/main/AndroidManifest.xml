@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:windowSoftInputMode="adjustResize"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,7 +10,11 @@
         android:label="@string/app_name_Normal"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tecnicentro">
+        android:theme="@style/Theme.Tecnicentro"
+        android:windowSoftInputMode="adjustResize">
+        <activity
+            android:name=".Andrea.GenerarFacturaActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -57,14 +60,12 @@
         <activity
             android:name=".Alejandro.Agg_Tecnico"
             android:exported="false" />
-
         <activity
             android:name=".Pablo.App.Agg_servicio"
             android:exported="false" />
         <activity
             android:name=".Pablo.App.MainActivity_Servicio"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
