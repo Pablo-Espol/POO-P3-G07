@@ -14,44 +14,37 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tvCodigo"
+            android:id="@+id/tvEmpresa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Empresa"
-            tools:ignore="HardcodedText" />
+            android:text="Empresa:"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/tvNombre"
+            android:id="@+id/tvFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha de creacion"
-            tools:ignore="HardcodedText" />
+            android:text="Fecha de creación:"/>
 
         <TextView
-            android:id="@+id/tvPrecio"
+            android:id="@+id/tvPeriodo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Periodo:"
-            tools:ignore="HardcodedText" />
+            android:text="Periodo:"/>
 
         <TextView
-            android:id="@+id/tvTpagar"
+            android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total a pagar:"
-            tools:ignore="HardcodedText" />
-
+            android:textStyle="bold"/>
 
         <Button
-            android:id="@+id/btnEditar"
-            android:layout_width="144dp"
+            android:id="@+id/btnMasDetalle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mas detalle"
-            tools:ignore="HardcodedText"
-            />
-
+            android:text="Más detalle"/>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
 
 
