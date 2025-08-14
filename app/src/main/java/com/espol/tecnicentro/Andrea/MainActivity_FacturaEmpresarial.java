@@ -71,14 +71,14 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
             if (agg == null) {
                 agg = new OrdenServicio();
                 agg.setCliente(o.getCliente());
-                agg.setFechaServicio(o.getFechaServicio());  // tomamos la más reciente luego
-                agg.setTotalOrden(o.getTotalOrden());        // iniciamos acumulado
+                agg.setFechaServicio(o.getFechaServicio());
+                agg.setTotalOrden(o.getTotalOrden());
                 mapa.put(key, agg);
             } else {
-                // Acumular total del mes
+
                 agg.setTotalOrden(agg.getTotalOrden() + o.getTotalOrden());
 
-                // Mantener como "fecha de creación" la más reciente del mes
+
                 if (o.getFechaServicio() != null && agg.getFechaServicio() != null
                         && o.getFechaServicio().isAfter(agg.getFechaServicio())) {
                     agg.setFechaServicio(o.getFechaServicio());

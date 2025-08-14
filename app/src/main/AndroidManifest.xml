@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Tecnicentro"
         android:windowSoftInputMode="adjustResize">
         <activity
+            android:name=".Andrea.ReporteServicio"
+            android:exported="false" />
+        <activity
             android:name=".Andrea.GenerarFacturaActivity"
             android:exported="false" />
         <activity
@@ -65,7 +68,7 @@
             android:exported="false" />
         <activity
             android:name=".Pablo.App.MainActivity_Servicio"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
