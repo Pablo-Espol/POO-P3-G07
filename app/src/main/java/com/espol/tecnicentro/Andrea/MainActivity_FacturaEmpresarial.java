@@ -46,7 +46,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         base.inicializarApp();
         controladorFactura = new ControladorFactura(base);
 
-        // UI
+
         recycler = findViewById(R.id.recyclerFacturas);
         btnGenerar = findViewById(R.id.btnGenerarFactura);
         recycler.setLayoutManager(new LinearLayoutManager(MainActivity_FacturaEmpresarial.this));
@@ -58,7 +58,10 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         Map<String, OrdenServicio> mapa = new HashMap<>();
         for (OrdenServicio o : base.getListOrden()) {
 
-            if (o.getCliente().getTipoCliente() != TipoCliente.EMPRESARIAL) continue;
+
+            if (o.getCliente() == null || o.getCliente().getTipoCliente() != TipoCliente.EMPRESARIAL) {
+                continue;
+            }
 
             String key = o.getCliente().getIdentificacion() + "-" +
                     o.getFechaServicio().getYear() + "-" +
@@ -68,13 +71,14 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
             if (agg == null) {
                 agg = new OrdenServicio();
                 agg.setCliente(o.getCliente());
-                agg.setFechaServicio(o.getFechaServicio()); // fecha más reciente del grupo
-                agg.setTotalOrden(o.getTotalOrden());       // iniciamos acumulado
+                agg.setFechaServicio(o.getFechaServicio());  // tomamos la más reciente luego
+                agg.setTotalOrden(o.getTotalOrden());        // iniciamos acumulado
                 mapa.put(key, agg);
             } else {
-                // Acumular
+                // Acumular total del mes
                 agg.setTotalOrden(agg.getTotalOrden() + o.getTotalOrden());
-                //  fecha más reciente como "fecha de creación"
+
+                // Mantener como "fecha de creación" la más reciente del mes
                 if (o.getFechaServicio() != null && agg.getFechaServicio() != null
                         && o.getFechaServicio().isAfter(agg.getFechaServicio())) {
                     agg.setFechaServicio(o.getFechaServicio());
@@ -82,16 +86,12 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
             }
         }
 
-        // +$50
+
         for (OrdenServicio os : mapa.values()) {
-            if (os.getCliente() != null && os.getCliente().getTipoCliente() == TipoCliente.EMPRESARIAL) {
-                os.setTotalOrden(os.getTotalOrden() + 50.0);
-            }
+            os.setTotalOrden(os.getTotalOrden() + 50.0);
         }
 
-
         facturasUi.addAll(mapa.values());
-
 
         Collections.sort(facturasUi, new Comparator<OrdenServicio>() {
             @Override
