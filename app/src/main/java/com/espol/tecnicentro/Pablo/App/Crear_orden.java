@@ -47,7 +47,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
 
 
     private ArrayList<DetalleServicio> listaDeServicios = new ArrayList<>();
-//variables que se van a enviar al constructor de OrdenServicio
+    //variables que se van a enviar al constructor de OrdenServicio
     private LocalDate fechaServicioSeleccionada;
     private Tecnico tecnicoAletorio;
     private Cliente clienteSeleccionado;
@@ -177,10 +177,9 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             double precio = servicioSeleccionado.getPrecio();
             Log.d("PRECIO", "El precio es: " + precio);
 
-            double subtotal = cant * precio;
 
             // Agregar a la lista
-            listaDeServicios.add(new DetalleServicio(cant, servicioSeleccionado, subtotal));
+            listaDeServicios.add(new DetalleServicio(cant, servicioSeleccionado));
             crearOrdenAdapter.notifyDataSetChanged();
         });
 

@@ -13,6 +13,11 @@ public class DetalleServicio implements Serializable {
         this.servicio = servicio;
         this.subtotal = subtotal;
     }
+    public DetalleServicio(int cantidad, Servicio servicio) {
+        this.cantidad = cantidad;
+        this.servicio = servicio;
+
+    }
 
     public DetalleServicio(int cantidad, double subtotal){
         this.cantidad = cantidad;
@@ -42,7 +47,9 @@ public class DetalleServicio implements Serializable {
 
 
     public double getSubtotal() {
-        return subtotal;
+
+
+        return  cantidad * servicio.getPrecio();
     }
 
 

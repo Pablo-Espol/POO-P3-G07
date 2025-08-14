@@ -51,7 +51,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
     public void onDetailsClick(OrdenServicio orden, int position) {
         // Envia a la activity de esa orden
         Intent intent = new Intent(this, Activity_detalleServicio.class);
-        intent.putExtra("Orden", orden);
+        intent.putExtra("CadaOrden", orden);
         startActivity(intent);
 
     }
@@ -69,7 +69,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         llenarLista();
         Log.d("AppOrdenes", "En onResume");//muestra la lista en el log
