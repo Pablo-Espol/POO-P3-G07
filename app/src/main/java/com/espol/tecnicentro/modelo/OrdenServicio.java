@@ -1,12 +1,19 @@
 package com.espol.tecnicentro.modelo;
 import com.espol.tecnicentro.controladores.ControladorBase;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
 
 public class OrdenServicio implements Serializable {
+    public static final String nombArchOrden = "Ordenes.ser";
     private Cliente cliente;
     private Tecnico tecnico;
     private LocalDate fechaServicio;
@@ -106,7 +113,64 @@ public class OrdenServicio implements Serializable {
     }
 
 
-    
+
+    public static ArrayList<OrdenServicio> obtenerOrdenes(){
+
+        return  ControladorBase.getInstance().getListOrden();
+    }
+
+    public static ArrayList<OrdenServicio> cargarOrdenes(File directorio){
+        ArrayList<OrdenServicio> lista = new ArrayList<>();
+        File f = new File(directorio, nombArchOrden);
+        //se escribe la lista serializada
+        if ( f.exists()) { //si no existe se crea la lista
+            try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(f))) {
+                lista = (ArrayList<OrdenServicio>) is.readObject();
+
+            } catch (Exception e) {
+                //quizas lanzar una excepcion personalizada
+                new Exception(e.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    public static boolean crearDatosIniciales(File directorio) throws Exception{
+        ArrayList<OrdenServicio> lista = ControladorBase.getInstance().getListOrden();
+        boolean guardado = false;
+
+        File f = new File(directorio, nombArchOrden);
+        if (lista.isEmpty()) {
+            lista = obtenerOrdenes(); //  carga datos de ejemplo si la lista está vacía
+        }
+
+        //se escribe la lista serializada
+        if (! f.exists()) { //si no existe se crea la lista
+            try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(f))) {
+                os.writeObject(lista);
+                guardado = true;
+            } catch (IOException e) {
+                //quizas lanzar una excepcion personalizada
+                throw new Exception(e.getMessage());
+            }
+        }else guardado = true;//si existe no hace nada
+        return guardado;
+    }
+
+    public static boolean guardarLista(File directorio,ArrayList<OrdenServicio> lista) throws Exception{
+        boolean guardado = false;
+        File f = new File(directorio, nombArchOrden);
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(f))) {
+            os.writeObject(lista);
+            guardado = true;
+        } catch (IOException e) {
+
+            //quizas lanzar una excepcion personalizada
+            throw new Exception(e.getMessage());
+        }
+        return guardado;
+    }
+
 
 
 }

@@ -108,7 +108,7 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
         dialogFragment.show(getSupportFragmentManager(), "EditarServicioDialogFragment");
     }
 
-    // Implementa el método del listener del DialogFragment
+    // Implementa el metodo del listener del DialogFragment
     @Override
     public void onServicioEditado(Servicio servicioActualizado, int position) {
         // Actualiza el servicio en la lista

@@ -2,6 +2,7 @@ package com.espol.tecnicentro.Pablo.App;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
 
@@ -17,11 +18,16 @@ import com.espol.tecnicentro.Pablo.adapters.OrdenAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.modelo.OrdenServicio;
+import com.espol.tecnicentro.modelo.Servicio;
+
+import java.util.ArrayList;
 
 
 public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapter.OnOrderDetailsClickListener {
     private RecyclerView recyclerViewOrden;
     private OrdenAdapter ordenAdapter;
+
+    private ArrayList<OrdenServicio> listaOrdenes;
 
     private ControladorBase controladorBase;
 
@@ -30,8 +36,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_orden);
-
-        llenarLista();
+        cargarDatos();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -62,10 +67,33 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
 
         //Configuramos el adaptador
 
+        try {
+            listaOrdenes = OrdenServicio.cargarOrdenes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+            Log.d("AppOrdenes","Datos leidos desde el archivo");
+        }catch (Exception e){
+            listaOrdenes = OrdenServicio.obtenerOrdenes();
+            Log.d("AppOrdenes", "Error al cargar datos"+e.getMessage());
 
+        }
+        Log.d("AppOrdenes", listaOrdenes.toString());//muestra la lista en el log
 
-        ordenAdapter = new OrdenAdapter(ControladorBase.getInstance().getListOrden(), this,this);
+        ordenAdapter = new OrdenAdapter(listaOrdenes, this,this);
         recyclerViewOrden.setAdapter(ordenAdapter);
+    }
+
+    private void cargarDatos() {
+        boolean guardado = false;
+        try{
+            guardado = OrdenServicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppOrdenes", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppOrdenes", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
     }
 
     @Override

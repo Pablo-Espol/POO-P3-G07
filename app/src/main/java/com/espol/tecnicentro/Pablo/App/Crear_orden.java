@@ -55,6 +55,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
     private String placaSeleccionada;
     private double subtotalOrden;
     private TipoVehiculo tipoVehiculoSelect;
+    private ArrayList<OrdenServicio> listaPrincipal= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,11 +185,12 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         });
 
 
-        //Guardar lista----------------------------
+        //Guardar Orden----------------------------
 
         Button btnGlistaServ = findViewById(R.id.btnGlistaServ);
 
         btnGlistaServ.setOnClickListener(view -> {
+            listaPrincipal = ControladorBase.getInstance().getListOrden();
 
             String idclientActual = idCliente_Orden.getText().toString().trim();
 
@@ -221,9 +223,23 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
 
             subtotalOrden= calcularTotalOrden(listaDeServicios);
 
- //(Cliente cliente, Tecnico tecnico, LocalDate fechaServicio, String placaVehiculo, double totalOrden,
-  //          TipoVehiculo tipoVehiculo, ArrayList<DetalleServicio> servicios)
-            ControladorBase.getInstance().getListOrden().add(new OrdenServicio(clienteSeleccionado,tecnicoAletorio, fechaServicioSeleccionada, placaSeleccionada,subtotalOrden ,tipoVehiculoSelect,listaDeServicios));
+
+
+
+
+            try {
+
+                OrdenServicio nuevaOrden = new OrdenServicio(clienteSeleccionado,tecnicoAletorio, fechaServicioSeleccionada, placaSeleccionada,subtotalOrden ,tipoVehiculoSelect,listaDeServicios);
+
+                listaPrincipal.add(nuevaOrden);
+                Log.d("AppOrdenes", nuevaOrden.toString());
+
+                OrdenServicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
+                Toast.makeText(getApplicationContext(), "Orden Creada", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Log.d("AppOrdenes", "Error al guardar datos: " + e.getMessage());
+            }
+
             Intent intent = new Intent(Crear_orden.this, MainActivity_Orden.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
