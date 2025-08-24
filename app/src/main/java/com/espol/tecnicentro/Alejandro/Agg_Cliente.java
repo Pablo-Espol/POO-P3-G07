@@ -1,10 +1,14 @@
 package com.espol.tecnicentro.Alejandro;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,14 +16,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.R;
+import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
 import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.controladores.ControladorCliente;
+import com.espol.tecnicentro.modelo.Cliente;
+import com.espol.tecnicentro.modelo.TipoCliente;
+
+import java.util.ArrayList;
 
 public class Agg_Cliente extends AppCompatActivity {
 
     private EditText editTextIdentificacion, editTextNombre, editTextTelefono, editTextDireccion;
     private Spinner spinner;
-    private Button buttonGuardar;
+    private Button button;
+    private ArrayList<Cliente> listaPrincipal= new ArrayList<>();
 
     private ControladorCliente controladorCliente;
 
@@ -42,7 +52,7 @@ public class Agg_Cliente extends AppCompatActivity {
         editTextTelefono = findViewById(R.id.editTextPhone2);
         editTextDireccion = findViewById(R.id.editTextText6);
         spinner = (Spinner) findViewById(R.id.spinner);
-        buttonGuardar = findViewById(R.id.button);
+        button = findViewById(R.id.button);
 
         // Inicializa el controlador (aquí asumo que tienes una instancia base o la puedes crear)
         controladorCliente = new ControladorCliente(new ControladorBase());
@@ -53,6 +63,53 @@ public class Agg_Cliente extends AppCompatActivity {
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,opciones);
         spinner.setAdapter(adapter);
 
+        Button button = findViewById(R.id.button);
+
+        button.setOnClickListener(view -> {
+
+
+            if (editTextIdentificacion.getText().toString().isEmpty() ||editTextIdentificacion.getText().toString().isEmpty()||editTextTelefono.getText().toString().isEmpty()||editTextDireccion.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            String nameId= editTextIdentificacion.getText().toString();
+            String nameCli= editTextNombre.getText().toString();
+            String nameTel= editTextTelefono.getText().toString();
+            String nameDir= editTextDireccion.getText().toString();
+            TipoCliente nameTipo= spinner.getSelectedItem().toString().equals("PERSONAL")?TipoCliente.PERSONAL:TipoCliente.EMPRESARIAL;
+
+            ArrayList<Cliente> listaClientes = Cliente.cargaClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+            if (listaClientes == null) {
+                listaClientes = new ArrayList<>();
+            }
+
+            Cliente nuevoCliente = new Cliente(nameId,nameCli,nameTel,nameDir,nameTipo);
+
+
+
+
+
+            try {
+
+
+                Log.d("AppServicios", nuevoCliente.toString());
+                listaPrincipal= ControladorBase.getInstance().getListClient();
+                listaPrincipal.add(nuevoCliente);
+                Cliente.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
+                Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Log.d("AppServicio", "Error al guardar datos: " + e.getMessage());
+            }
+
+            finish();
+
+        });
+
 
     }
+
+
 }

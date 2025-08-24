@@ -33,8 +33,7 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_tecnicos);
-        control = new ControladorBase();
-        control.inicializarApp();
+
 
         llenarLista();
 
@@ -51,6 +50,7 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
 
 
         });
+
 
     }
 
