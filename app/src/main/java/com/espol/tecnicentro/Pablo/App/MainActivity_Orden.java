@@ -36,7 +36,6 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_orden);
-        cargarDatos();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -81,20 +80,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
         recyclerViewOrden.setAdapter(ordenAdapter);
     }
 
-    private void cargarDatos() {
-        boolean guardado = false;
-        try{
-            guardado = OrdenServicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
-        }catch (Exception e){
-            guardado = false;
-            Log.d("AppOrdenes", "Error al crear los datos iniciales"+e.getMessage());
-        }
-        if (guardado) {
-            Log.d("AppOrdenes", "DATOS INICIALES GUARDADOS");
-            //LEER LOS DATOS
-        }
-    }
 
     @Override
     protected void onResume() {

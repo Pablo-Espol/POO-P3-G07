@@ -3,6 +3,8 @@ package com.espol.tecnicentro;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +21,8 @@ import com.espol.tecnicentro.Andrea.MainActivity_ReporteServicio;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteTecnico;
 import com.espol.tecnicentro.Pablo.App.MainActivity_Orden;
 import com.espol.tecnicentro.Pablo.App.MainActivity_Servicio;
+import com.espol.tecnicentro.modelo.OrdenServicio;
+import com.espol.tecnicentro.modelo.Servicio;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        //cargamos todos los datos  en el celular(serialziados)
+        cargarDatosServicios();
+        cargarDatosOrdenes();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -79,5 +88,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+
+
+    private void cargarDatosServicios() {
+        boolean guardado = false;
+        try{
+            guardado = Servicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosOrdenes() {
+        boolean guardado = false;
+        try{
+            guardado = OrdenServicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppOrdenes", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppOrdenes", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
 
 }

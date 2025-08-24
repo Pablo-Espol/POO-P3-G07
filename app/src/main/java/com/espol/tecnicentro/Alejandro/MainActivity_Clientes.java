@@ -25,16 +25,13 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
     private Spinner spinner;
     private RecyclerView recyclerViewClient;
     private ClienteAdapter clienteAdapter;
-    private ControladorBase control;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_clientes);
-        control = new ControladorBase();
-        control.inicializarApp();
+
         llenarLista();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -64,7 +61,7 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
 
 
 
-        clienteAdapter = new ClienteAdapter(control.getListClient(),this,this);
+        clienteAdapter = new ClienteAdapter(ControladorBase.getInstance().getListClient(), this,this);
         recyclerViewClient.setAdapter(clienteAdapter);
     }
 

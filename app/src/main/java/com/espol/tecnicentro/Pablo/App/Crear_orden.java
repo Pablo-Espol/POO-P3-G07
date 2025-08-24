@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,16 +40,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapter.OnDeleteIcClickListener {
-    private Spinner spTipo, sp_TipoV, sp_Tipo_Serv;
-
-    private EditText idFecha_Orden, idCant_Serv, idCliente_Orden, idPlaca_Orden;
-
+    private Spinner spTipo, sp_TipoV, sp_Tipo_Serv,spidCliente_Orden;
+    private EditText idFecha_Orden, idCant_Serv, idPlaca_Orden;
     private RecyclerView recyclerViewCOrden;
     private Crear_Orden_Adapter crearOrdenAdapter;
-
-
     private ArrayList<DetalleServicio> listaDeServicios = new ArrayList<>();
-    //variables que se van a enviar al constructor de OrdenServicio
     private LocalDate fechaServicioSeleccionada;
     private Tecnico tecnicoAletorio;
     private Cliente clienteSeleccionado;
@@ -64,13 +61,12 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         setContentView(R.layout.activity_crear_orden);
 
         //datos identificados
-        idCliente_Orden = findViewById(R.id.idCliente_Orden);
+        spidCliente_Orden = findViewById(R.id.spidCliente_Orden);
         idPlaca_Orden = findViewById(R.id.idPlaca_Orden);
         sp_TipoV = findViewById(R.id.sp_TipoV);
         spTipo = findViewById(R.id.spTipo);
         sp_Tipo_Serv = findViewById(R.id.sp_Tipo_Serv);
         idCant_Serv = findViewById(R.id.idCant_Serv);
-
 
         //configuramos la fecha para que salga como calendario
         idFecha_Orden = findViewById(R.id.idFecha_Orden);
@@ -84,15 +80,9 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     Crear_orden.this,
                     (view, year1, monthOfYear, dayOfMonth) -> {
-                        // Convertir a LocalDate
                         LocalDate fechaSeleccionada = LocalDate.of(year1, monthOfYear + 1, dayOfMonth);
-
-                        // Mostrar la fecha en formato dd/MM/yyyy en el EditText
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                         idFecha_Orden.setText(fechaSeleccionada.format(formatter));
-
-                        // Aquí ya tienes un LocalDate listo para pasar al constructor
-                        // Ejemplo: guardar en una variable global
                         fechaServicioSeleccionada = fechaSeleccionada;
                     },
                     year, month, day
@@ -103,20 +93,63 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         //llamar metodo llenar lista
         llenarLista();
 
+        // **CAMBIOS APLICADOS A CONTINUACIÓN**
 
-        //Spinner de Tipo cliente-----------------------
+        // Spinner de Tipo cliente-----------------------
+        // Este se llena primero para que esté listo cuando el otro Spinner lo necesite.
         if (spTipo != null) {
-            ArrayAdapter<TipoCliente> adapterC = new ArrayAdapter<>(
+            ArrayAdapter<TipoCliente> adapterTipoCliente = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
                     TipoCliente.values()
             );
-            adapterC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spTipo.setAdapter(adapterC);
+            adapterTipoCliente.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spTipo.setAdapter(adapterTipoCliente);
         }
-        //------------------------------
 
-        //Spinner de Tipo Vehiculo-----------------
+        // Spinner de ID Clientes---------------
+        List<Cliente> listaClientes = ControladorBase.getInstance().getListClient();
+
+        Cliente clienteVacio = new Cliente("Seleccione un Cliente", "", "", "", null);
+
+        // Agrega el cliente "dummy o vacio" al inicio de la lista
+        listaClientes.add(0, clienteVacio);
+
+        if (spidCliente_Orden != null) {
+            ArrayAdapter<Cliente> adapterClientes = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_spinner_item,listaClientes
+
+            );
+            adapterClientes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spidCliente_Orden.setAdapter(adapterClientes);
+        }
+
+        // Listener para el Spinner de ID de cliente
+        spidCliente_Orden.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Obtener el objeto Cliente seleccionado
+                Cliente clienteSeleccionado = (Cliente) parent.getItemAtPosition(position);
+
+                // Si el cliente no es nulo, obtenemos su TipoCliente
+                if (clienteSeleccionado != null) {
+                    TipoCliente tipoDelCliente = clienteSeleccionado.getTipoCliente();
+                    // Llama al nuevo método para seleccionar y bloquear el Spinner de TipoCliente
+                    seleccionarYBloquearSpinnerTipo(tipoDelCliente);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Si la selección se borra, puedes habilitar el Spinner
+                spTipo.setEnabled(true);
+            }
+        });
+
+        // FIN DE CAMBIOS
+
+        // Spinner de Tipo Vehiculo
         if (sp_TipoV != null) {
             ArrayAdapter<TipoVehiculo> adapterV = new ArrayAdapter<>(
                     this,
@@ -126,9 +159,8 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             adapterV.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             sp_TipoV.setAdapter(adapterV);
         }
-        //----------------------
 
-        //Spinner servicios------------------------
+        // Spinner servicios
         if (sp_Tipo_Serv != null) {
             ArrayAdapter<Servicio> adapterS = new ArrayAdapter<>(
                     this,
@@ -138,9 +170,6 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             sp_Tipo_Serv.setAdapter(adapterS);
         }
-        //-----------------------------
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -150,18 +179,12 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
 
         //Agregar servicio a la lista
         Button btnAgServ = findViewById(R.id.btnAgProv);
-
         btnAgServ.setOnClickListener(view -> {
-
             String cantString = idCant_Serv.getText().toString().trim();
-
-            // Validación: si está vacío, mostramos Toast y salimos
             if (cantString.isEmpty()) {
                 Toast.makeText(this, "Debe ingresar una cantidad", Toast.LENGTH_SHORT).show();
-                return; // No continúa
+                return;
             }
-
-            // Validación: cantidad mayor a 0
             int cant;
             try {
                 cant = Integer.parseInt(cantString);
@@ -173,67 +196,37 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
                 Toast.makeText(this, "Cantidad inválida", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             Servicio servicioSeleccionado = (Servicio) sp_Tipo_Serv.getSelectedItem();
             double precio = servicioSeleccionado.getPrecio();
             Log.d("PRECIO", "El precio es: " + precio);
-
-
-            // Agregar a la lista
             listaDeServicios.add(new DetalleServicio(cant, servicioSeleccionado));
             crearOrdenAdapter.notifyDataSetChanged();
         });
 
-
-        //Guardar Orden----------------------------
-
+        //Guardar Orden
         Button btnGlistaServ = findViewById(R.id.btnGlistaServ);
-
         btnGlistaServ.setOnClickListener(view -> {
+            if (!verificacionDeCampos()) {
+                return;
+            }
             listaPrincipal = ControladorBase.getInstance().getListOrden();
 
-            String idclientActual = idCliente_Orden.getText().toString().trim();
-
-            clienteSeleccionado = null;
-            for (Cliente cliente : ControladorBase.getInstance().getListClient()){
-                if (cliente.getIdentificacion().equals(idclientActual)){
-                    clienteSeleccionado = cliente;
-                    break;
-                }
-            }
-
-            //verifica que el cliente exista
-            if (clienteSeleccionado == null) {
-                Toast.makeText(this, "Debe seleccionar un cliente válido", Toast.LENGTH_SHORT).show();
-                return; // Evita continuar si no hay cliente válido
-            }
-
             tipoClienteSelect = (TipoCliente) spTipo.getSelectedItem();
-
             tipoVehiculoSelect =(TipoVehiculo) sp_TipoV.getSelectedItem();
-
+            clienteSeleccionado = (Cliente) spidCliente_Orden.getSelectedItem();
             placaSeleccionada = idPlaca_Orden.getText().toString().trim();
-
             tecnicoAletorio= seleccionarTecnicoAleatorio();
+            subtotalOrden= calcularTotalOrden(listaDeServicios);
 
             if (tecnicoAletorio == null) {
                 Toast.makeText(this, "No hay técnicos disponibles. Debe agregar un nuevo técnico.", Toast.LENGTH_SHORT).show();
-
+                return; // Añadir un return aquí para evitar errores si no hay técnico
             }
 
-            subtotalOrden= calcularTotalOrden(listaDeServicios);
-
-
-
-
-
             try {
-
                 OrdenServicio nuevaOrden = new OrdenServicio(clienteSeleccionado,tecnicoAletorio, fechaServicioSeleccionada, placaSeleccionada,subtotalOrden ,tipoVehiculoSelect,listaDeServicios);
-
                 listaPrincipal.add(nuevaOrden);
                 Log.d("AppOrdenes", nuevaOrden.toString());
-
                 OrdenServicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
                 Toast.makeText(getApplicationContext(), "Orden Creada", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
@@ -244,24 +237,31 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
-
-
         });
+    }
 
+    // Nuevo método para manejar la selección y bloqueo del Spinner de TipoCliente
+    private void seleccionarYBloquearSpinnerTipo(TipoCliente tipoCliente) {
+        ArrayAdapter<TipoCliente> adapterTipo = (ArrayAdapter<TipoCliente>) spTipo.getAdapter();
+
+        if (adapterTipo == null) {
+            return;
+        }
+
+        int position = adapterTipo.getPosition(tipoCliente);
+
+        if (position >= 0) {
+            spTipo.setSelection(position);
+            spTipo.setEnabled(false); // Bloquea el Spinner
+        }
     }
 
     @Override
     public void onDeleteIcClick(DetalleServicio servicio, int position){
-
-        // Verificamos que la posición sea válida para evitar errores.
         if (position >= 0 && position < listaDeServicios.size()) {
             listaDeServicios.remove(position);
-
-            // Esto le dice al RecyclerView que el elemento en esa posición ha sido eliminado.
             if (crearOrdenAdapter != null) {
                 crearOrdenAdapter.notifyItemRemoved(position);
-                // También puedes usar notifyDataSetChanged() si no te importa el efecto de animación.
-                // crearOrdenAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -269,14 +269,9 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
     private void llenarLista(){
         recyclerViewCOrden = findViewById(R.id.recyclerViewCOrden);
         recyclerViewCOrden.setLayoutManager(new LinearLayoutManager(this));
-
-        //Configuramos el adaptador
-
         crearOrdenAdapter = new Crear_Orden_Adapter(listaDeServicios,this,this);
         recyclerViewCOrden.setAdapter(crearOrdenAdapter);
     }
-
-
 
     public Tecnico seleccionarTecnicoAleatorio() {
         List<Tecnico> tecnicosDisponibles = new ArrayList<>();
@@ -306,28 +301,58 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         return total;
     }
 
+    private boolean verificacionDeCampos() {
+        if (idPlaca_Orden.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "La placa del vehículo es obligatoria.", Toast.LENGTH_SHORT).show();
+            idPlaca_Orden.requestFocus();
+            return false;
+        }
 
+        if (idFecha_Orden.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Debe seleccionar la fecha de servicio.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
+        if (spidCliente_Orden.getSelectedItem() == null) {
+            Toast.makeText(this, "Debe seleccionar un cliente.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
-@Override
+        if (spTipo.getSelectedItem() == null) {
+            Toast.makeText(this, "Debe seleccionar un tipo de cliente.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (sp_TipoV.getSelectedItem() == null) {
+            Toast.makeText(this, "Debe seleccionar un tipo de vehículo.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (listaDeServicios.isEmpty()) {
+            Toast.makeText(this, "Debe agregar al menos un servicio.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public void onResume(){
         super.onResume();
         llenarLista();
-        Log.d("AppLista Servicios", "En onResume");//muestra la lista en el log
+        Log.d("AppLista Servicios", "En onResume");
 
-    ArrayList<Servicio> listaArchivo = Servicio.cargarServicio(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
-    if (listaArchivo != null) {
-        ControladorBase.getInstance().setListService(listaArchivo);
+        ArrayList<Servicio> listaArchivo = Servicio.cargarServicio(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+        if (listaArchivo != null) {
+            ControladorBase.getInstance().setListService(listaArchivo);
+        }
+
+        ArrayAdapter<Servicio> adapterS = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                ControladorBase.getInstance().getListService()
+        );
+        adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_Tipo_Serv.setAdapter(adapterS);
     }
-
-    ArrayAdapter<Servicio> adapterS = new ArrayAdapter<>(
-            this,
-            android.R.layout.simple_spinner_item,
-            ControladorBase.getInstance().getListService()
-    );
-    adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    sp_Tipo_Serv.setAdapter(adapterS);
-
-}
-
 }

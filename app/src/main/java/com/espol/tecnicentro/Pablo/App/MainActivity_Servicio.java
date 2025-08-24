@@ -35,10 +35,6 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_servicio);
 
-        //cargar datos
-        cargarDatos();
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -76,20 +72,7 @@ public class MainActivity_Servicio extends AppCompatActivity implements Servicio
             recyclerView.setAdapter(adapter);
         }
 
-    private void cargarDatos() {
-            boolean guardado = false;
-            try{
-                guardado = Servicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
-            }catch (Exception e){
-                guardado = false;
-                Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
-            }
-            if (guardado) {
-                Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
-                //LEER LOS DATOS
-            }
-        }
 
 
     @Override

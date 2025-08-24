@@ -19,14 +19,14 @@ public class Cliente extends Personal implements Serializable {
         return tipoCliente;
     }
 
+
     public void setTipoCliente(TipoCliente tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
 
    @Override
     public String toString() {
-        return super.toString() + String.format(", Tipo: %s", tipoCliente);
+        return getIdentificacion();
     }
-    
 
 }

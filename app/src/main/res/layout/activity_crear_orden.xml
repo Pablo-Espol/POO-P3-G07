@@ -68,7 +68,7 @@
             android:text="@string/fecha"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@+id/idCliente_Orden" />
+            app:layout_constraintTop_toBottomOf="@+id/spidCliente_Orden" />
 
         <TextView
             android:id="@+id/textView16"
@@ -94,19 +94,27 @@
             android:id="@+id/spTipo"
             android:layout_width="150dp"
             android:layout_height="36dp"
-            android:background="@drawable/edittext_border"
+            android:background="@drawable/edittext_border2"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <Spinner
+            android:id="@+id/spidCliente_Orden"
+            android:layout_width="130dp"
+            android:layout_height="36dp"
+            android:background="@drawable/edittext_border"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <EditText
             android:id="@+id/idFecha_Orden"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
+            android:background="@drawable/edittext_border"
             android:ems="10"
             android:hint="@string/EjFecha"
             android:inputType="date"
-            android:background="@drawable/edittext_border"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -114,9 +122,9 @@
             android:id="@+id/sp_TipoV"
             android:layout_width="184dp"
             android:layout_height="36dp"
+            android:background="@drawable/edittext_border"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView16"
-            android:background="@drawable/edittext_border"
 
             />
 
@@ -140,10 +148,9 @@
             android:id="@+id/sp_Tipo_Serv"
             android:layout_width="170dp"
             android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@+id/textView23"
             android:background="@drawable/edittext_border"
-            />
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
         <EditText
             android:id="@+id/idCant_Serv"
@@ -152,24 +159,12 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:autofillHints=""
+            android:background="@drawable/edittext_border"
             android:ems="10"
             android:hint="@string/cero"
             android:inputType="number"
-            android:background="@drawable/edittext_border"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-        <EditText
-            android:id="@+id/idCliente_Orden"
-            android:layout_width="125dp"
-            android:layout_height="41dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/idEjemplo"
-            android:inputType="number"
-            android:background="@drawable/edittext_border"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <Button
             android:id="@+id/btnAgProv"
@@ -215,10 +210,10 @@
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
+            android:background="@drawable/edittext_border"
             android:ems="10"
             android:hint="@string/EjPlaca"
             android:inputType="text"
-            android:background="@drawable/edittext_border"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 

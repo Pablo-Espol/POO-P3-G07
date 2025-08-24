@@ -77,7 +77,6 @@ public class Agg_servicio extends AppCompatActivity {
 
         try {
 
-
             Log.d("AppServicios", nuevoServicio.toString());
             listaPrincipal= ControladorBase.getInstance().getListService();
             listaPrincipal.add(nuevoServicio);
