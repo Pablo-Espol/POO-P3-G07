@@ -65,7 +65,7 @@ public class MainActivity_Tecnico extends AppCompatActivity implements TecnicoAd
 
 
 
-        tecnicoAdapter = new TecnicoAdapter(control.getListTecni(),this,this);
+        tecnicoAdapter = new TecnicoAdapter(ControladorBase.getInstance().getListTecni(), this,this);
         recyclerViewTecnico.setAdapter(tecnicoAdapter);
     }
 

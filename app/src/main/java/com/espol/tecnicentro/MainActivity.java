@@ -24,6 +24,7 @@ import com.espol.tecnicentro.Pablo.App.MainActivity_Servicio;
 import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 import com.espol.tecnicentro.modelo.Servicio;
+import com.espol.tecnicentro.modelo.Tecnico;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         cargarDatosServicios();
         cargarDatosOrdenes();
         cargarDatosClientes();
+        cargarDatosTecnicos();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -137,6 +139,21 @@ public class MainActivity extends AppCompatActivity {
         }
         if (guardado) {
             Log.d("AppClientes", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosTecnicos() {
+        boolean guardado = false;
+        try{
+            guardado = Tecnico.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
             //LEER LOS DATOS
         }
     }
