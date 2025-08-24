@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class Agg_servicio extends AppCompatActivity {
         try {
 
             Log.d("AppServicios", nuevoServicio.toString());
-            listaPrincipal= ControladorBase.getInstance().getListService();
+            listaPrincipal= DatosBase.getInstance().getListService();
             listaPrincipal.add(nuevoServicio);
             Servicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
             Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();

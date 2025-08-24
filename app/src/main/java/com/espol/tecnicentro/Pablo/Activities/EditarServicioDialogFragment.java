@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;

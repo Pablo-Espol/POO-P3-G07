@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        tools:context=".Pablo.App.MainActivity_Servicio">
+        tools:context=".Pablo.Activities.MainActivity_Servicio">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

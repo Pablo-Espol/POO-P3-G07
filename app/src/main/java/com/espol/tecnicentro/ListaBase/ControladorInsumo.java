@@ -1,11 +1,11 @@
-package com.espol.tecnicentro.controladores;
+package com.espol.tecnicentro.ListaBase;
 
 import java.time.LocalDate;
 import com.espol.tecnicentro.modelo.*;
 
-public class ControladorInsumo extends ControladorBase {
+public class ControladorInsumo extends DatosBase {
     
-    public ControladorInsumo(ControladorBase base) {
+    public ControladorInsumo(DatosBase base) {
         this.listClient = base.getListClient();
         this.listTecni = base.getListTecni();
         this.listSuplier = base.getListSuplier();

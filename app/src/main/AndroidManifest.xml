@@ -28,13 +28,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pablo.App.Crear_orden"
+            android:name=".Pablo.Activities.Crear_orden"
             android:exported="false" />
         <activity
-            android:name=".Pablo.App.Activity_detalleServicio"
+            android:name=".Pablo.Activities.Activity_detalleServicio"
             android:exported="false" />
         <activity
-            android:name=".Pablo.App.MainActivity_Orden"
+            android:name=".Pablo.Activities.MainActivity_Orden"
             android:exported="false" />
         <activity
             android:name=".Andrea.MainActivity_ReporteTecnico"
@@ -46,28 +46,28 @@
             android:name=".Andrea.MainActivity_FacturaEmpresarial"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.MainActivity_Tecnico"
+            android:name=".Alejandro.Activities.MainActivity_Tecnico"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.MainActivity_Proveedores"
+            android:name=".Alejandro.Activities.MainActivity_Proveedores"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.Agg_Proveedores"
+            android:name=".Alejandro.Activities.Agg_Proveedores"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.MainActivity_Clientes"
+            android:name=".Alejandro.Activities.MainActivity_Clientes"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.Agg_Cliente"
+            android:name=".Alejandro.Activities.Agg_Cliente"
             android:exported="false" />
         <activity
-            android:name=".Alejandro.Agg_Tecnico"
+            android:name=".Alejandro.Activities.Agg_Tecnico"
             android:exported="false" />
         <activity
-            android:name=".Pablo.App.Agg_servicio"
+            android:name=".Pablo.Activities.Agg_servicio"
             android:exported="false" />
         <activity
-            android:name=".Pablo.App.MainActivity_Servicio"
+            android:name=".Pablo.Activities.MainActivity_Servicio"
             android:exported="false" />
     </application>
 

@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.Andrea.Adapters.FacturaAdapter;
-import com.espol.tecnicentro.controladores.ControladorBase;
-import com.espol.tecnicentro.controladores.ControladorFactura;
+import com.espol.tecnicentro.ListaBase.DatosBase;
+import com.espol.tecnicentro.ListaBase.ControladorFactura;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
     private FacturaAdapter adapter;
 
     // Controladores
-    private ControladorBase base;
+    private DatosBase base;
     private ControladorFactura controladorFactura;
 
 
@@ -42,7 +42,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         setContentView(R.layout.activity_main_factura_empresarial);
 
 
-        base = new ControladorBase();
+        base = new DatosBase();
         base.inicializarApp();
         controladorFactura = new ControladorFactura(base);
 

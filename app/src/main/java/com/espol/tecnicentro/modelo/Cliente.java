@@ -1,7 +1,7 @@
 
 package com.espol.tecnicentro.modelo;
 
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,12 +67,12 @@ public class Cliente extends Personal implements Serializable {
         return guardado;
     }
     public static boolean crearDatosIniciales(File directorio) throws Exception{
-        ArrayList<Cliente> lista = ControladorBase.getInstance().getListClient();
+        ArrayList<Cliente> lista = DatosBase.getInstance().getListClient();
         boolean guardado = false;
 
         File f = new File(directorio, nomArchivoCl);
         if (lista.isEmpty()) {
-            lista = ControladorBase.getInstance().getListClient(); //  carga datos de ejemplo si la lista está vacía
+            lista = DatosBase.getInstance().getListClient(); //  carga datos de ejemplo si la lista está vacía
         }
 
         //se escribe la lista serializada

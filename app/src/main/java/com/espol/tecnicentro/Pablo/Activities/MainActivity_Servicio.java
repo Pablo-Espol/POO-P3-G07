@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.Pablo.adapters.ServicioAdapter;
-import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;

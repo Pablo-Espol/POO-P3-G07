@@ -1,6 +1,5 @@
-package com.espol.tecnicentro.Alejandro;
+package com.espol.tecnicentro.Alejandro.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,9 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
-import com.espol.tecnicentro.controladores.ControladorBase;
-import com.espol.tecnicentro.controladores.ControladorCliente;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.TipoCliente;
 
@@ -30,10 +27,6 @@ public class Agg_Cliente extends AppCompatActivity {
     private Spinner spinner;
     private Button button;
     private ArrayList<Cliente> listaPrincipal= new ArrayList<>();
-
-    private ControladorCliente controladorCliente;
-
-
 
 
     @Override
@@ -54,16 +47,11 @@ public class Agg_Cliente extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         button = findViewById(R.id.button);
 
-        // Inicializa el controlador (aquí asumo que tienes una instancia base o la puedes crear)
-        controladorCliente = new ControladorCliente(new ControladorBase());
-
 
         String [] opciones= { "PERSONAL", "EMPRESARIAL"};
 
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,opciones);
         spinner.setAdapter(adapter);
-
-        Button button = findViewById(R.id.button);
 
         button.setOnClickListener(view -> {
 
@@ -88,20 +76,14 @@ public class Agg_Cliente extends AppCompatActivity {
 
             Cliente nuevoCliente = new Cliente(nameId,nameCli,nameTel,nameDir,nameTipo);
 
-
-
-
-
             try {
-
-
-                Log.d("AppServicios", nuevoCliente.toString());
-                listaPrincipal= ControladorBase.getInstance().getListClient();
+                Log.d("AppCliente", nuevoCliente.toString());
+                listaPrincipal= DatosBase.getInstance().getListClient();
                 listaPrincipal.add(nuevoCliente);
                 Cliente.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
                 Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Log.d("AppServicio", "Error al guardar datos: " + e.getMessage());
+                Log.d("AppCliente", "Error al guardar datos: " + e.getMessage());
             }
 
             finish();

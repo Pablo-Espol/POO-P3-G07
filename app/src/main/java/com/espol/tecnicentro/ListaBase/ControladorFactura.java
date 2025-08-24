@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.controladores;
+package com.espol.tecnicentro.ListaBase;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -6,9 +6,9 @@ import java.time.format.TextStyle;
 import java.util.*;
 import com.espol.tecnicentro.modelo.*;
 
-public class ControladorFactura extends ControladorBase {
+public class ControladorFactura extends DatosBase {
     
-    public ControladorFactura(ControladorBase base) {
+    public ControladorFactura(DatosBase base) {
         this.listClient = base.getListClient();
         this.listTecni = base.getListTecni();
         this.listSuplier = base.getListSuplier();

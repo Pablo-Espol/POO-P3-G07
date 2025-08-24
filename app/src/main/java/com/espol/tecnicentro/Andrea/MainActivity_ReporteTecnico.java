@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import com.espol.tecnicentro.controladores.ControladorBase;
-import com.espol.tecnicentro.controladores.ControladorReporte;
+import com.espol.tecnicentro.ListaBase.DatosBase;
+import com.espol.tecnicentro.ListaBase.ControladorReporte;
 
 public class MainActivity_ReporteTecnico extends AppCompatActivity {
 
@@ -69,7 +69,7 @@ public class MainActivity_ReporteTecnico extends AppCompatActivity {
                 int anio = Integer.parseInt(anioStr);
                 int mes = spMes.getSelectedItemPosition() + 1; // 1..12
 
-                ControladorBase base = new ControladorBase();
+                DatosBase base = new DatosBase();
                 base.inicializarApp(); //
                 ControladorReporte ctrl = new ControladorReporte(base);
 

@@ -1,10 +1,10 @@
-package com.espol.tecnicentro.controladores;
+package com.espol.tecnicentro.ListaBase;
 
 import java.util.*;
 import com.espol.tecnicentro.modelo.*;
 import java.time.LocalDate;
 
-public class ControladorBase {
+public class DatosBase {
     protected ArrayList<Cliente> listClient;
     protected ArrayList<Tecnico> listTecni;
     protected ArrayList<Proveedor> listSuplier;
@@ -12,9 +12,9 @@ public class ControladorBase {
     protected ArrayList<OrdenServicio> listOrden;
     protected ArrayList<Insumo> listInsumosFaltantes;
 
-    private static ControladorBase instance;
+    private static DatosBase instance;
 
-    public ControladorBase() {
+    public DatosBase() {
         listClient = new ArrayList<>();
         listTecni = new ArrayList<>();
         listSuplier = new ArrayList<>();
@@ -24,9 +24,9 @@ public class ControladorBase {
         inicializarApp();
     }
 
-    public static synchronized ControladorBase getInstance() {
+    public static synchronized DatosBase getInstance() {
         if (instance == null) {
-            instance = new ControladorBase();
+            instance = new DatosBase();
         }
         return instance;
     }

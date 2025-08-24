@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Pablo.adapters.Crear_Orden_Adapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.DetalleServicio;
 import com.espol.tecnicentro.modelo.OrdenServicio;
@@ -108,7 +108,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         }
 
         // Spinner de ID Clientes---------------
-        List<Cliente> listaClientes = ControladorBase.getInstance().getListClient();
+        List<Cliente> listaClientes = DatosBase.getInstance().getListClient();
 
         Cliente clienteVacio = new Cliente("Seleccione un Cliente", "", "", "", null);
 
@@ -165,7 +165,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             ArrayAdapter<Servicio> adapterS = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
-                    ControladorBase.getInstance().getListService()
+                    DatosBase.getInstance().getListService()
             );
             adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             sp_Tipo_Serv.setAdapter(adapterS);
@@ -209,7 +209,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
             if (!verificacionDeCampos()) {
                 return;
             }
-            listaPrincipal = ControladorBase.getInstance().getListOrden();
+            listaPrincipal = DatosBase.getInstance().getListOrden();
 
             tipoClienteSelect = (TipoCliente) spTipo.getSelectedItem();
             tipoVehiculoSelect =(TipoVehiculo) sp_TipoV.getSelectedItem();
@@ -275,9 +275,9 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
 
     public Tecnico seleccionarTecnicoAleatorio() {
         List<Tecnico> tecnicosDisponibles = new ArrayList<>();
-        for (Tecnico tecnico : ControladorBase.getInstance().getListTecni()) {
+        for (Tecnico tecnico : DatosBase.getInstance().getListTecni()) {
             int ordenesAsignadas = 0;
-            for (OrdenServicio orden : ControladorBase.getInstance().getListOrden()) {
+            for (OrdenServicio orden : DatosBase.getInstance().getListOrden()) {
                 if (orden.getTecnico().getIdentificacion().equals(tecnico.getIdentificacion())) {
                     ordenesAsignadas++;
                 }
@@ -344,13 +344,13 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
 
         ArrayList<Servicio> listaArchivo = Servicio.cargarServicio(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
         if (listaArchivo != null) {
-            ControladorBase.getInstance().setListService(listaArchivo);
+            DatosBase.getInstance().setListService(listaArchivo);
         }
 
         ArrayAdapter<Servicio> adapterS = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
-                ControladorBase.getInstance().getListService()
+                DatosBase.getInstance().getListService()
         );
         adapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_Tipo_Serv.setAdapter(adapterS);

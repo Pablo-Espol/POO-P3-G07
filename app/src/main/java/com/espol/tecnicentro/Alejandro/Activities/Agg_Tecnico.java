@@ -1,30 +1,28 @@
-package com.espol.tecnicentro.Alejandro;
-import android.content.Intent;
+package com.espol.tecnicentro.Alejandro.Activities;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.graphics.Insets;
+
 import com.espol.tecnicentro.modelo.Tecnico;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 import android.widget.Toast;
 
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
-import com.espol.tecnicentro.controladores.ControladorTecnico;
-import com.espol.tecnicentro.controladores.ControladorTecnico;
+import com.espol.tecnicentro.ListaBase.DatosBase;
+
+import java.util.ArrayList;
 
 public class Agg_Tecnico extends AppCompatActivity {
-
-    private ControladorTecnico controladorTecnico;
+    private ArrayList<Tecnico> listaPrincipal = new ArrayList<>();
     private EditText editTextIdentificacion, editTextNombre, editTextTelefono, editTextEspecialidad;
     private Button buttonGuardar;
     @Override
@@ -45,9 +43,6 @@ public class Agg_Tecnico extends AppCompatActivity {
 
         buttonGuardar = findViewById(R.id.btnaggTec);
 
-        // Inicializa el controlador (aquí asumo que tienes una instancia base o la puedes crear)
-        controladorTecnico = new ControladorTecnico(new ControladorBase());
-
         buttonGuardar.setOnClickListener(v -> {
             String id = editTextIdentificacion.getText().toString().trim();
             String nombre = editTextNombre.getText().toString().trim();
@@ -58,14 +53,26 @@ public class Agg_Tecnico extends AppCompatActivity {
                 Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
+            ArrayList<Tecnico> listaTecnicos = Tecnico.cargarTecnico(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("id", id);
-            resultIntent.putExtra("nombre", nombre);
-            resultIntent.putExtra("telefono", telefono);
-            resultIntent.putExtra("especialidad", especialidad);
+            if (listaTecnicos == null) {
+                listaTecnicos = new ArrayList<>();
+            }
 
-            setResult(RESULT_OK, resultIntent); // tu método para agregar al controlador
+            Tecnico nuevoTecnico= new Tecnico(id,nombre,telefono,especialidad);
+            try {
+
+                listaPrincipal= DatosBase.getInstance().getListTecni();
+                listaPrincipal.add(nuevoTecnico);
+                Tecnico.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
+
+                Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+
+            }catch (Exception e){
+                Log.d("AppTecnico", "Error al guardar datos: " + e.getMessage());
+
+            }
+
 
             finish(); // Cierra esta activity y regresa a MainActivity_Tecnico
         });

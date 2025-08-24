@@ -10,7 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Pablo.App.MainActivity_Orden">
+        tools:context=".Pablo.Activities.MainActivity_Orden">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"

@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Pablo.adapters.OrdenAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.OrdenServicio;
-import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
 
     private ArrayList<OrdenServicio> listaOrdenes;
 
-    private ControladorBase controladorBase;
+    private DatosBase datosBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

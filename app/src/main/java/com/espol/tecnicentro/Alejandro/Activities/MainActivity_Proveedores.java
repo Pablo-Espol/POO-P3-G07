@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Alejandro;
+package com.espol.tecnicentro.Alejandro.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Alejandro.adapters.ProveedorAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Proveedor;
 
 public class MainActivity_Proveedores extends AppCompatActivity implements ProveedorAdapter.OnProveedorEditClickListener {
@@ -49,7 +49,7 @@ public class MainActivity_Proveedores extends AppCompatActivity implements Prove
 
 
 
-        proveedorAdapter = new ProveedorAdapter(ControladorBase.getInstance().getListSuplier(), this,this);
+        proveedorAdapter = new ProveedorAdapter(DatosBase.getInstance().getListSuplier(), this,this);
         recyclerViewProveedor.setAdapter(proveedorAdapter);
     }
 

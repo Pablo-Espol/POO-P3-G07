@@ -1,5 +1,5 @@
 package com.espol.tecnicentro.modelo;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,7 +116,7 @@ public class OrdenServicio implements Serializable {
 
     public static ArrayList<OrdenServicio> obtenerOrdenes(){
 
-        return  ControladorBase.getInstance().getListOrden();
+        return  DatosBase.getInstance().getListOrden();
     }
 
     public static ArrayList<OrdenServicio> cargarOrdenes(File directorio){
@@ -136,7 +136,7 @@ public class OrdenServicio implements Serializable {
     }
 
     public static boolean crearDatosIniciales(File directorio) throws Exception{
-        ArrayList<OrdenServicio> lista = ControladorBase.getInstance().getListOrden();
+        ArrayList<OrdenServicio> lista = DatosBase.getInstance().getListOrden();
         boolean guardado = false;
 
         File f = new File(directorio, nombArchOrden);

@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Alejandro;
+package com.espol.tecnicentro.Alejandro.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Alejandro.adapters.ClienteAdapter;
-import com.espol.tecnicentro.Pablo.adapters.OrdenAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
 
 public class MainActivity_Clientes extends AppCompatActivity implements ClienteAdapter.OnClienteEditClickListener {
@@ -61,7 +60,7 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
 
 
 
-        clienteAdapter = new ClienteAdapter(ControladorBase.getInstance().getListClient(), this,this);
+        clienteAdapter = new ClienteAdapter(DatosBase.getInstance().getListClient(), this,this);
         recyclerViewClient.setAdapter(clienteAdapter);
     }
 

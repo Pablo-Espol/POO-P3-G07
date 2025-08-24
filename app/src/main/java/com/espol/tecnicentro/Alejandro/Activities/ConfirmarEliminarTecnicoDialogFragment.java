@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Alejandro;
+package com.espol.tecnicentro.Alejandro.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;

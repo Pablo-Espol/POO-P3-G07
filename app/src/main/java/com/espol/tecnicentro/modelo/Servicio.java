@@ -1,6 +1,6 @@
 
 package com.espol.tecnicentro.modelo;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,7 +79,7 @@ public class Servicio implements Serializable {
 
     public static ArrayList<Servicio> obtenerServicio(){
 
-        return  ControladorBase.getInstance().getListService();
+        return  DatosBase.getInstance().getListService();
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Servicio implements Serializable {
     }
 
     public static boolean crearDatosIniciales(File directorio) throws Exception{
-        ArrayList<Servicio> lista = ControladorBase.getInstance().getListService();
+        ArrayList<Servicio> lista = DatosBase.getInstance().getListService();
         boolean guardado = false;
 
         File f = new File(directorio, nomArchivo);

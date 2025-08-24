@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.espol.tecnicentro.Alejandro.ConfirmarEliminarTecnicoDialogFragment;
+import com.espol.tecnicentro.Alejandro.Activities.ConfirmarEliminarTecnicoDialogFragment;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.modelo.Tecnico;
 
@@ -22,10 +22,9 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.ViewHold
     private Activity activity;
     private OnTecnicoEditClickListener listener;
 
-    public TecnicoAdapter(List<Tecnico> tecnicoList, Activity activity, OnTecnicoEditClickListener listener) {
+    public TecnicoAdapter(List<Tecnico> tecnicoList, Activity activity) {
         this.tecnicoList = tecnicoList;
         this.activity = activity;
-        this.listener = listener;
     }
 
     public interface OnTecnicoEditClickListener {
@@ -66,17 +65,22 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.ViewHold
 
         // Botón Eliminar
         holder.btneelimTec.setOnClickListener(v -> {
-            ConfirmarEliminarTecnicoDialogFragment dialog = ConfirmarEliminarTecnicoDialogFragment
-                    .newInstance(tecnico, holder.getAdapterPosition());
+            ConfirmarEliminarTecnicoDialogFragment dialog =
+                    ConfirmarEliminarTecnicoDialogFragment.newInstance(tecnico, holder.getAdapterPosition());
 
-            dialog.setOnTecnicoEliminarListener(pos -> {
-                tecnicoList.remove(pos);
-                notifyItemRemoved(pos);
-                notifyItemRangeChanged(pos, tecnicoList.size());
-            });
+            // Pasa el callback a la Activity para que ELLA elimine y GUARDE el .ser
+            if (activity instanceof ConfirmarEliminarTecnicoDialogFragment.OnTecnicoEliminarListener) {
+                dialog.setOnTecnicoEliminarListener(
+                        (ConfirmarEliminarTecnicoDialogFragment.OnTecnicoEliminarListener) activity
+                );
+            }
 
-            dialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "ConfirmarEliminarTecnico");
+            dialog.show(
+                    ((FragmentActivity) activity).getSupportFragmentManager(),
+                    "ConfirmarEliminarTecnico"
+            );
         });
+
     }
 
     @Override

@@ -1,11 +1,9 @@
-package com.espol.tecnicentro.Alejandro;
+package com.espol.tecnicentro.Alejandro.Activities;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
-import com.espol.tecnicentro.controladores.ControladorProveedor;
-import com.espol.tecnicentro.controladores.ControladorTecnico;
-import com.espol.tecnicentro.modelo.Cliente;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Proveedor;
-import com.espol.tecnicentro.modelo.TipoCliente;
 
 import java.util.ArrayList;
 
@@ -27,7 +21,6 @@ public class Agg_Proveedores extends AppCompatActivity {
 
     private EditText editTextIdentificacion,editTextNombre, editTextTelefono, editTextDescripcion;
     private Button buttonGuardar;
-    private ControladorProveedor controladorProveedor;
     private ArrayList<Proveedor> listaPrincipal= new ArrayList<>();
 
     @Override
@@ -49,8 +42,6 @@ public class Agg_Proveedores extends AppCompatActivity {
 
         buttonGuardar = findViewById(R.id.button2);
 
-        // Inicializa el controlador (aquí asumo que tienes una instancia base o la puedes crear)
-        controladorProveedor = new ControladorProveedor(new ControladorBase());
         Button button = findViewById(R.id.button2);
 
         button.setOnClickListener(view -> {
@@ -75,20 +66,15 @@ public class Agg_Proveedores extends AppCompatActivity {
 
             Proveedor nuevoProveedor = new Proveedor(idProve,nameProve,nameTel,Descrip);
 
-
-
-
-
             try {
 
-
-                Log.d("AppServicios", nuevoProveedor.toString());
-                listaPrincipal= ControladorBase.getInstance().getListSuplier();
+                Log.d("AppProveedor", nuevoProveedor.toString());
+                listaPrincipal= DatosBase.getInstance().getListSuplier();
                 listaPrincipal.add(nuevoProveedor);
                 Proveedor.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
                 Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                Log.d("AppServicio", "Error al guardar datos: " + e.getMessage());
+                Log.d("AppProveedor", "Error al guardar datos: " + e.getMessage());
             }
 
             finish();

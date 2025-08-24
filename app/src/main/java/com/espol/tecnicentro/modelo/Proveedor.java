@@ -4,7 +4,7 @@
  */
 package com.espol.tecnicentro.modelo;
 
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -73,12 +73,12 @@ public class Proveedor extends Personal implements Serializable {
     }
 
     public static boolean crearDatosIniciales(File directorio) throws Exception{
-        ArrayList<Proveedor> lista = ControladorBase.getInstance().getListSuplier();
+        ArrayList<Proveedor> lista = DatosBase.getInstance().getListSuplier();
         boolean guardado = false;
 
         File f = new File(directorio, nomArchivoPr);
         if (lista.isEmpty()) {
-            lista = ControladorBase.getInstance().getListSuplier(); //  carga datos de ejemplo si la lista está vacía
+            lista = DatosBase.getInstance().getListSuplier(); //  carga datos de ejemplo si la lista está vacía
         }
 
         //se escribe la lista serializada

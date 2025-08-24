@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Andrea.Adapters.DetalleFacturaAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
+import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.DetalleServicio;
 import com.espol.tecnicentro.modelo.OrdenServicio;
@@ -35,7 +35,7 @@ public class GenerarFacturaActivity extends AppCompatActivity {
     private RecyclerView rvDetalle;
     private TextView tvTotal;
 
-    private ControladorBase base;
+    private DatosBase base;
 
     private final List<Cliente> empresas = new ArrayList<>();
     private final List<DetalleFacturaItem> items = new ArrayList<>();
@@ -48,7 +48,7 @@ public class GenerarFacturaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generar_factura);
 
-        base = new ControladorBase();
+        base = new DatosBase();
         base.inicializarApp();
 
         spEmpresa = findViewById(R.id.spEmpresa);

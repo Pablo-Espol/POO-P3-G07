@@ -10,7 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Alejandro.MainActivity_Clientes">
+        tools:context=".Alejandro.Activities.MainActivity_Clientes">
 
 
         <Spinner

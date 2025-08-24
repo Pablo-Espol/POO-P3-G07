@@ -1,6 +1,5 @@
 package com.espol.tecnicentro;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,14 +12,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
-import com.espol.tecnicentro.Alejandro.MainActivity_Proveedores;
-import com.espol.tecnicentro.Alejandro.MainActivity_Tecnico;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Clientes;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Proveedores;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Tecnico;
 import com.espol.tecnicentro.Andrea.MainActivity_FacturaEmpresarial;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteServicio;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteTecnico;
-import com.espol.tecnicentro.Pablo.App.MainActivity_Orden;
-import com.espol.tecnicentro.Pablo.App.MainActivity_Servicio;
+import com.espol.tecnicentro.Pablo.Activities.MainActivity_Orden;
+import com.espol.tecnicentro.Pablo.Activities.MainActivity_Servicio;
 import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 import com.espol.tecnicentro.modelo.Servicio;

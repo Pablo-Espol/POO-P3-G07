@@ -1,4 +1,4 @@
-package com.espol.tecnicentro.Pablo.App;
+package com.espol.tecnicentro.Pablo.Activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Pablo.adapters.EseServicioAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.controladores.ControladorBase;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 
 public class Activity_detalleServicio extends AppCompatActivity  {

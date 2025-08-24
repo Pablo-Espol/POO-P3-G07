@@ -10,7 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Alejandro.ConfirmarEliminarTecnicoDialogFragment">
+        tools:context=".Alejandro.Activities.ConfirmarEliminarTecnicoDialogFragment">
 
         <TextView
             android:id="@+id/textView13"
