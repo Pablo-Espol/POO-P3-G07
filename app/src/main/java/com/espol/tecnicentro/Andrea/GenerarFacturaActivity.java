@@ -81,6 +81,25 @@ public class GenerarFacturaActivity extends AppCompatActivity {
         rvDetalle.setAdapter(detalleAdapter);
 
         btnGenerar.setOnClickListener(v -> generar());
+        String empresaId = getIntent().getStringExtra("empresaId");
+        int anioExtra    = getIntent().getIntExtra("anio", -1);
+        int mesExtra     = getIntent().getIntExtra("mes", -1); // 1..12
+
+        if (empresaId != null) {
+            // seleccionar empresa por identificacion
+            int idx = 0;
+            for (int i = 0; i < empresas.size(); i++) {
+                if (empresaId.equals(empresas.get(i).getIdentificacion())) { idx = i; break; }
+            }
+            spEmpresa.setSelection(idx);
+        }
+        if (anioExtra > 0) etAnio.setText(String.valueOf(anioExtra));
+        if (mesExtra >= 1 && mesExtra <= 12) spMes.setSelection(mesExtra - 1);
+
+// Si vino todo, genera de una
+        if (empresaId != null && anioExtra > 0 && mesExtra >= 1) {
+            generar();
+        }
     }
 
     private List<String> toNombres(List<Cliente> cs) {
