@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/background_sub">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -82,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="52dp"
-            android:backgroundTint="#388E3C"
+            android:backgroundTint="@color/design_default_color_primary_dark"
             android:onClick="guardar"
             android:text="@string/aceptarbtn"
             app:layout_constraintStart_toStartOf="@+id/guideline3"

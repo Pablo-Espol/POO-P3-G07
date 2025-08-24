@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_sub"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -26,8 +28,8 @@
             android:layout_height="67dp"
             android:layout_marginTop="60dp"
             android:text="@string/agregar_cliente"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorprimary"
             android:textDirection="firstStrong"
             android:textSize="29sp"
             android:textStyle="bold"

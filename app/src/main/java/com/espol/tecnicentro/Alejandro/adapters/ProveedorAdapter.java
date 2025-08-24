@@ -50,7 +50,7 @@ import java.util.List;
 
             holder.nombreProve.setText("Nombre: " + proveedor.getNombre());
             holder.phoneProve.setText("Telefono: "+ proveedor.getTelefono());
-            holder.descripcion.setText("Descripcion: "+proveedor.getDescripcion());
+            holder.descripcion.setText("Descripción: "+proveedor.getDescripcion());
 
         }
         @Override

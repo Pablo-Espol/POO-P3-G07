@@ -75,6 +75,7 @@
     <string name="EjPlaca">ABC123</string>
     <string name="cero">0</string>
     <string name="EjEspecialidad">Ej:Mecanico</string>
+    <string name="version">v 1.0.0</string>
 
     <!-- hints-->
 

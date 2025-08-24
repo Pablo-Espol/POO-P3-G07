@@ -49,10 +49,10 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Cliente cliente = clienteList.get(position);
 
-        holder.idCliente.setText("Identificacion: " + cliente.getIdentificacion());
+        holder.idCliente.setText("Identificación: " + cliente.getIdentificacion());
         holder.nombre.setText("Nombre: "+ cliente.getNombre());
         holder.phone.setText("Telefono: "+cliente.getTelefono());
-        holder.direccion.setText("Direccion: "+cliente.getDireccion());
+        holder.direccion.setText("Dirección: "+cliente.getDireccion());
 
         holder.tipocliente.setText("Tipo Cliente: "+cliente.getTipoCliente().toString());
 
