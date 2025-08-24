@@ -38,7 +38,7 @@ public class Cliente extends Personal implements Serializable {
     public String toString() {
         return getIdentificacion();
     }
-    public static ArrayList<Cliente> cargaClientes(File directorio){
+    public static ArrayList<Cliente> cargarClientes(File directorio){
         ArrayList<Cliente> lista = new ArrayList<>();
         File f = new File(directorio, nomArchivoCl);
         //se escribe la lista serializada

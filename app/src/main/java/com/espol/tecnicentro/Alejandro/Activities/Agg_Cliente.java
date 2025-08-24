@@ -68,7 +68,7 @@ public class Agg_Cliente extends AppCompatActivity {
             String nameDir= editTextDireccion.getText().toString();
             TipoCliente nameTipo= spinner.getSelectedItem().toString().equals("PERSONAL")?TipoCliente.PERSONAL:TipoCliente.EMPRESARIAL;
 
-            ArrayList<Cliente> listaClientes = Cliente.cargaClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+            ArrayList<Cliente> listaClientes = Cliente.cargarClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
             if (listaClientes == null) {
                 listaClientes = new ArrayList<>();

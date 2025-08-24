@@ -58,6 +58,7 @@ public class Proveedor extends Personal implements Serializable {
         }
         return lista;
 }
+
     public static boolean guardarLista(File directorio,ArrayList<Proveedor> lista) throws Exception{
         boolean guardado = false;
         File f = new File(directorio, nomArchivoPr);

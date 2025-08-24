@@ -2,6 +2,7 @@ package com.espol.tecnicentro.Alejandro.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
 
@@ -18,10 +19,14 @@ import com.espol.tecnicentro.Alejandro.adapters.ProveedorAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Proveedor;
+import com.espol.tecnicentro.modelo.Servicio;
 
-public class MainActivity_Proveedores extends AppCompatActivity implements ProveedorAdapter.OnProveedorEditClickListener {
+import java.util.ArrayList;
+
+public class MainActivity_Proveedores extends AppCompatActivity{
     private RecyclerView recyclerViewProveedor;
     private ProveedorAdapter proveedorAdapter;
+    private ArrayList<Proveedor> listaProveedores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +51,17 @@ public class MainActivity_Proveedores extends AppCompatActivity implements Prove
         recyclerViewProveedor.setLayoutManager(new LinearLayoutManager(this));
 
         //Configuramos el adaptador
-
-
-
-        proveedorAdapter = new ProveedorAdapter(DatosBase.getInstance().getListSuplier(), this,this);
+        try{
+            listaProveedores = Proveedor.cargaProveedores(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+            Log.d("AppProveedor","Datos leidos desde el archivo");
+        }catch (Exception e){
+            listaProveedores= DatosBase.getInstance().getListSuplier();
+            Log.d("AppProveedor", "Error al cargar datos"+e.getMessage());
+        }
+        proveedorAdapter = new ProveedorAdapter(listaProveedores, this);
         recyclerViewProveedor.setAdapter(proveedorAdapter);
     }
 
-    @Override
-    public void onEditClick(Proveedor proveedor , int position){
-
-    }
     @Override
     protected void onResume() {
         super.onResume();

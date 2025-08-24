@@ -50,12 +50,6 @@ card_view:cardElevation="6dp"
         android:layout_height="wrap_content"
         android:text="Tipo Cliente"
         tools:ignore="HardcodedText"/>
-    <Button
-        android:id="@+id/btneditClient"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:text="Editar"
-        tools:ignore="HardcodedText"/>
 
 </LinearLayout>
 

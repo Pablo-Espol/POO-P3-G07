@@ -2,6 +2,7 @@ package com.espol.tecnicentro.Alejandro.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -18,12 +19,16 @@ import com.espol.tecnicentro.Alejandro.adapters.ClienteAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
+import com.espol.tecnicentro.modelo.Servicio;
 
-public class MainActivity_Clientes extends AppCompatActivity implements ClienteAdapter.OnClienteEditClickListener {
+import java.util.ArrayList;
 
-    private Spinner spinner;
+public class MainActivity_Clientes extends AppCompatActivity {
+
     private RecyclerView recyclerViewClient;
     private ClienteAdapter clienteAdapter;
+    private ArrayList<Cliente> listaClientes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,6 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_clientes);
 
-        llenarLista();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -47,26 +51,22 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
             startActivity(intent);
         });
 
-
-
-
-
     }
     private void llenarLista(){
         recyclerViewClient = findViewById(R.id.recyclerViewClient);
         recyclerViewClient.setLayoutManager(new LinearLayoutManager(this));
 
         //Configuramos el adaptador
+        try{
+            listaClientes = Cliente.cargarClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+            Log.d("AppServicios","Datos leidos desde el archivo");
+        }catch (Exception e){
+            listaClientes= DatosBase.getInstance().getListClient();
+            Log.d("AppServicio", "Error al cargar datos"+e.getMessage());
+        }
 
-
-
-        clienteAdapter = new ClienteAdapter(DatosBase.getInstance().getListClient(), this,this);
+        clienteAdapter = new ClienteAdapter(listaClientes, this);
         recyclerViewClient.setAdapter(clienteAdapter);
-    }
-
-    @Override
-    public void onEditClick(Cliente cliente, int position){
-
     }
 
     @Override
@@ -76,8 +76,4 @@ public class MainActivity_Clientes extends AppCompatActivity implements ClienteA
         Log.d("AppClientes", "En onResume");//muestra la lista en el log
 
     }
-
-
-
-
 }
