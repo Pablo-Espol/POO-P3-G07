@@ -1,20 +1,23 @@
 package com.espol.tecnicentro.Andrea;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.Andrea.Adapters.ReporteServicioAdapter;
+import com.espol.tecnicentro.Andrea.ReporteServiciosUC;
+import com.espol.tecnicentro.R;
+import com.espol.tecnicentro.modelo.OrdenServicio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity_ReporteServicio extends AppCompatActivity {
@@ -35,30 +38,33 @@ public class MainActivity_ReporteServicio extends AppCompatActivity {
         btnConsultar = findViewById(R.id.btnConsultarServicio);
         rvServicios = findViewById(R.id.rvReporteServicio);
 
-
-        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-        ArrayAdapter<String> adapterMes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, meses);
-        spMes.setAdapter(adapterMes);
-
+        List<String> meses = Arrays.asList("Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        spMes.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, meses));
 
         rvServicios.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ReporteServicioAdapter(new ArrayList<>());
         rvServicios.setAdapter(adapter);
 
-
         btnConsultar.setOnClickListener(v -> {
-            String anio = etAnio.getText().toString();
-            String mes = spMes.getSelectedItem().toString();
+            String anioStr = etAnio.getText().toString().trim();
+            if (anioStr.length() != 4) {
+                Toast.makeText(this, "Ingresa un año válido (YYYY).", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int anio = Integer.parseInt(anioStr);
+            int mes = spMes.getSelectedItemPosition() + 1; // 1..12
 
-            // Datos de prueba
-            List<ReporteServicio> datos = new ArrayList<>();
-            datos.add(new ReporteServicio("Alineación", 20));
-            datos.add(new ReporteServicio("Balanceo", 25));
-            datos.add(new ReporteServicio("Cambio de aceite motor", 10));
-            datos.add(new ReporteServicio("Cambio filtro aceite", 15));
+            // obtiene todas las órdenes serializadas (DatosBase.getListOrden())
+            List<OrdenServicio> ordenes = OrdenServicio.obtenerOrdenes();
 
-            adapter.setDatos(datos);
+            // genera el reporte y lo muestra
+            adapter.setDatos(ReporteServiciosUC.generar(ordenes, anio, mes));
+
+            if (adapter.getItemCount() == 0) {
+                Toast.makeText(this, "Sin datos para ese período.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
