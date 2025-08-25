@@ -1,7 +1,5 @@
 package com.espol.tecnicentro.Andrea;
 
-
-import com.espol.tecnicentro.Andrea.ReporteServicio;
 import com.espol.tecnicentro.modelo.DetalleServicio;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 

@@ -32,7 +32,7 @@ public class FacturaStore {
         } catch (Exception ignored) {}
     }
 
-    /** Inserta o actualiza por (empresaId, anio, mes). Si existe, actualiza total y fechaCreacion. */
+
     public static void upsert(Context c, FacturaResumen nueva) {
         List<FacturaResumen> lista = load(c);
         boolean updated = false;

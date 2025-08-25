@@ -63,7 +63,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         refreshData();
     }
 
-    /** Carga el historial (FacturaStore) y lo adapta a la UI existente (usa OrdenServicio “fake”). */
+
     private void refreshData() {
         List<FacturaResumen> historial = FacturaStore.load(this);
 
