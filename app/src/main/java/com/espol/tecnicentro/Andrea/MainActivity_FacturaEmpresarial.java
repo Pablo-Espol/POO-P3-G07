@@ -2,6 +2,7 @@ package com.espol.tecnicentro.Andrea;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
     private final List<OrdenServicio> facturasUi = new ArrayList<>();
 
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_factura_empresarial);
@@ -40,11 +42,20 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
         adapter = new FacturaAdapter(facturasUi);
         recycler.setAdapter(adapter);
 
+        // Botón para generar factura
         findViewById(R.id.btnGenerarFactura)
                 .setOnClickListener(v -> startActivity(new Intent(this, GenerarFacturaActivity.class)));
 
+        // 🔹 Nuevo botón para borrar historial
+        findViewById(R.id.btnClearHistorial).setOnClickListener(v -> {
+            FacturaStore.clear(this);
+            Toast.makeText(this, "Historial borrado", Toast.LENGTH_SHORT).show();
+            refreshData();
+        });
+
         refreshData();
     }
+
 
     @Override
     protected void onResume() {
@@ -104,4 +115,5 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
     }
+
 }

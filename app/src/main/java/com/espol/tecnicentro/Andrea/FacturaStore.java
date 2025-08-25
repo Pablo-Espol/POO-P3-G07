@@ -56,4 +56,10 @@ public class FacturaStore {
         }
         save(c, lista);
     }
+    public static void clear(Context c) {
+        File f = new File(c.getFilesDir(), FILE);
+        if (f.exists()) {
+            f.delete();
+        }
+    }
 }
