@@ -1,6 +1,7 @@
 package com.espol.tecnicentro.Andrea;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +22,13 @@ import com.espol.tecnicentro.modelo.DetalleServicio;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 import com.espol.tecnicentro.modelo.TipoCliente;
 
+// === NUEVAS CLASES DEL HISTORIAL ===
+import com.espol.tecnicentro.Andrea.FacturaResumen;
+import com.espol.tecnicentro.Andrea.FacturaStore;
+import com.espol.tecnicentro.Andrea.DetalleFacturaItem;
+
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,64 +48,92 @@ public class GenerarFacturaActivity extends AppCompatActivity {
     private final List<DetalleFacturaItem> items = new ArrayList<>();
     private DetalleFacturaAdapter detalleAdapter;
 
-    private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es","EC"));
+    private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("es", "EC"));
+
+    // Si vienes desde “Más detalle”
+    private boolean modoDetalle = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generar_factura);
 
-        base = new DatosBase();
+        base = DatosBase.getInstance();
         base.inicializarApp();
 
+        // lee Ordenes.ser del mismo lugar donde las guarda Crear_orden
+        syncOrdenesDesdeDisco();
+
         spEmpresa = findViewById(R.id.spEmpresa);
-        spMes     = findViewById(R.id.spMes);
-        etAnio    = findViewById(R.id.etAnio);
-        btnGenerar= findViewById(R.id.btnGenerar);
+        spMes = findViewById(R.id.spMes);
+        etAnio = findViewById(R.id.etAnio);
+        btnGenerar = findViewById(R.id.btnGenerar);
         rvDetalle = findViewById(R.id.rvDetalle);
-        tvTotal   = findViewById(R.id.tvTotal);
+        tvTotal = findViewById(R.id.tvTotal);
 
-
+        // Empresas solo EMPRESARIALES
         for (Cliente c : base.getListClient()) {
             if (c.getTipoCliente() == TipoCliente.EMPRESARIAL) empresas.add(c);
         }
-        ArrayAdapter<String> adEmp = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_dropdown_item,
-                toNombres(empresas)
-        );
-        spEmpresa.setAdapter(adEmp);
+        spEmpresa.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, toNombres(empresas)));
 
-        // meses
-        String[] meses = new String[]{"Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-        ArrayAdapter<String> adMes = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, meses);
-        spMes.setAdapter(adMes);
+        // Meses
+        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        spMes.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, meses));
 
         // Recycler
         rvDetalle.setLayoutManager(new LinearLayoutManager(this));
         detalleAdapter = new DetalleFacturaAdapter(items);
         rvDetalle.setAdapter(detalleAdapter);
 
-        btnGenerar.setOnClickListener(v -> generar());
+        // Modo normal: genera y GUARDA en el historial
+        btnGenerar.setOnClickListener(v -> generar(true));
+
+        // ------- Modo “Más detalle” (desde listado) -------
         String empresaId = getIntent().getStringExtra("empresaId");
-        int anioExtra    = getIntent().getIntExtra("anio", -1);
-        int mesExtra     = getIntent().getIntExtra("mes", -1); // 1..12
+        int anioExtra = getIntent().getIntExtra("anio", -1);
+        int mesExtra = getIntent().getIntExtra("mes", -1); // 1..12
 
-        if (empresaId != null) {
-            // seleccionar empresa por identificacion
-            int idx = 0;
+        if (empresaId != null && anioExtra > 0 && mesExtra > 0) {
+            int idxEmpresa = -1;
             for (int i = 0; i < empresas.size(); i++) {
-                if (empresaId.equals(empresas.get(i).getIdentificacion())) { idx = i; break; }
+                if (empresaId.equals(empresas.get(i).getIdentificacion())) {
+                    idxEmpresa = i;
+                    break;
+                }
             }
-            spEmpresa.setSelection(idx);
-        }
-        if (anioExtra > 0) etAnio.setText(String.valueOf(anioExtra));
-        if (mesExtra >= 1 && mesExtra <= 12) spMes.setSelection(mesExtra - 1);
+            if (idxEmpresa >= 0) spEmpresa.setSelection(idxEmpresa);
 
-// Si vino todo, genera de una
-        if (empresaId != null && anioExtra > 0 && mesExtra >= 1) {
-            generar();
+            etAnio.setText(String.valueOf(anioExtra));
+            if (mesExtra >= 1 && mesExtra <= 12) spMes.setSelection(mesExtra - 1);
+
+            spEmpresa.setEnabled(false);
+            spMes.setEnabled(false);
+            etAnio.setEnabled(false);
+            btnGenerar.setVisibility(android.view.View.GONE);
+
+            modoDetalle = true;
+            generar(false); // ← NO se guarda
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        syncOrdenesDesdeDisco();
+        if (modoDetalle) generar(false);
+    }
+
+    /** Lee Ordenes.ser desde el mismo lugar donde las guarda Crear_orden (external files / Downloads). */
+    private void syncOrdenesDesdeDisco() {
+        ArrayList<OrdenServicio> desdeDisco =
+                OrdenServicio.cargarOrdenes(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+        if (desdeDisco != null && !desdeDisco.isEmpty()) {
+            base.getListOrden().clear();
+            base.getListOrden().addAll(desdeDisco);
         }
     }
 
@@ -108,30 +143,35 @@ public class GenerarFacturaActivity extends AppCompatActivity {
         return r;
     }
 
-    private void generar() {
+    /** Genera el detalle; si guardarEnHistorial=true, registra en FacturaStore. */
+    private void generar(boolean guardarEnHistorial) {
         if (empresas.isEmpty()) {
-            Toast.makeText(this,"No hay empresas registradas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No hay empresas registradas", Toast.LENGTH_SHORT).show();
             return;
         }
         String sAnio = etAnio.getText().toString().trim();
         if (sAnio.isEmpty()) {
-            Toast.makeText(this,"Ingrese un año", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ingrese un año", Toast.LENGTH_SHORT).show();
             return;
         }
+
         int anio = Integer.parseInt(sAnio);
         int mesIdx = spMes.getSelectedItemPosition() + 1; // 1..12
         Cliente empresa = empresas.get(spEmpresa.getSelectedItemPosition());
 
-
         HashMap<String, DetalleFacturaItem> mapa = new HashMap<>();
-        double totalServicios = 0.0;
 
         for (OrdenServicio o : base.getListOrden()) {
-            if (!o.getCliente().getIdentificacion().equals(empresa.getIdentificacion())) continue;
+            if (o == null || o.getCliente() == null || o.getFechaServicio() == null) continue;
+
+            if (!empresa.getIdentificacion().equals(o.getCliente().getIdentificacion())) continue;
             if (o.getFechaServicio().getYear() != anio) continue;
             if (o.getFechaServicio().getMonthValue() != mesIdx) continue;
 
+            if (o.getServicios() == null) continue;
+
             for (DetalleServicio d : o.getServicios()) {
+                if (d == null || d.getServicio() == null) continue;
                 String nombre = d.getServicio().getNombre();
                 double precio = d.getServicio().getPrecio();
                 int cant = d.getCantidad();
@@ -142,28 +182,43 @@ public class GenerarFacturaActivity extends AppCompatActivity {
                     mapa.put(nombre, it);
                 } else {
                     it.cantidad += cant;
-                    // precioUnitario se mantiene (histórico simple)
                 }
             }
         }
 
-        // lista adapter
+        // Volcar resultados al adapter
         items.clear();
         items.addAll(mapa.values());
 
-        // total de servicios
-        for (DetalleFacturaItem it : items) {
-            totalServicios += it.getSubtotal();
+        // Total de servicios
+        double totalServicios = 0.0;
+        for (DetalleFacturaItem it : items) totalServicios += it.getSubtotal();
+
+        // Caso sin órdenes: NO guardar, mostrar $0 y salir
+        if (items.isEmpty()) {
+            detalleAdapter.notifyDataSetChanged();
+            tvTotal.setText("Total a pagar: " + nf.format(0));
+            Toast.makeText(this, "No hay servicios en ese período.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-
+        // Hay servicios: recargo fijo empresarial de $50
         double total = totalServicios + 50.0;
 
         detalleAdapter.notifyDataSetChanged();
         tvTotal.setText("Total a pagar: " + nf.format(total));
 
-        if (items.isEmpty()) {
-            Toast.makeText(this,"No hay órdenes en ese período", Toast.LENGTH_SHORT).show();
+        // Guardar en historial SOLO en modo formulario (no en “Más detalle”)
+        if (guardarEnHistorial) {
+            FacturaResumen fr = new FacturaResumen(
+                    empresa,
+                    anio,
+                    mesIdx,
+                    total,
+                    LocalDate.now()
+            );
+            FacturaStore.upsert(this, fr);
+            Toast.makeText(this, "Factura registrada en el historial", Toast.LENGTH_SHORT).show();
         }
     }
 }
