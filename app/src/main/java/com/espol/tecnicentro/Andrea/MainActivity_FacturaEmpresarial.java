@@ -65,47 +65,40 @@ public class MainActivity_FacturaEmpresarial extends AppCompatActivity {
 
     /** Carga el historial (FacturaStore) y lo adapta a la UI existente (usa OrdenServicio “fake”). */
     private void refreshData() {
-        // Usa el nombre real del método de tu store (en tu clase es "load")
         List<FacturaResumen> historial = FacturaStore.load(this);
 
         facturasUi.clear();
 
         for (FacturaResumen fr : historial) {
-            // Tomamos el cliente tal cual se guardó en el resumen
+            // Cliente guardado en el resumen
             Cliente cli = fr.getEmpresa();
 
-            // Si quieres reflejar cambios de nombre del cliente, intenta buscarlo por ID
+            // Si existe en la base “viva”, úsalo (por si cambió el nombre)
             if (cli != null && cli.getIdentificacion() != null) {
                 for (Cliente c : base.getListClient()) {
                     if (cli.getIdentificacion().equals(c.getIdentificacion())) {
-                        cli = c; // usa la versión “viva” del cliente
+                        cli = c;
                         break;
                     }
                 }
             }
-
-            // Si por alguna razón no hay cliente, crea uno “placeholder” para evitar NPE
             if (cli == null) {
                 cli = new Cliente("Empresa desconocida", "", "", "", null);
             }
 
-            // Adaptamos a la UI existente: creamos un OrdenServicio “falso”
+            // <- FECHA DEL PERÍODO FACTURADO (día 1)
+            LocalDate fechaPeriodo = LocalDate.of(fr.getAnio(), fr.getMes(), 1);
+
+            // Adaptamos a UI existente
             OrdenServicio fake = new OrdenServicio();
             fake.setCliente(cli);
-
-            // El adapter muestra “Periodo”, así que basta con día 1 del mes; si
-            // guardaste fecha de creación úsala, si no, construye con anio/mes.
-            LocalDate fecha = fr.getFechaCreacion() != null
-                    ? fr.getFechaCreacion()
-                    : LocalDate.of(fr.getAnio(), fr.getMes(), 1);
-            fake.setFechaServicio(fecha);
-
+            fake.setFechaServicio(fechaPeriodo);   // <<< clave: usar periodo, no fecha de creación
             fake.setTotalOrden(fr.getTotal());
 
             facturasUi.add(fake);
         }
 
-        // Ordenar por fecha DESC
+        // Ordena por fecha (más reciente primero)
         Collections.sort(facturasUi, (a, b) -> {
             if (a.getFechaServicio() == null && b.getFechaServicio() == null) return 0;
             if (a.getFechaServicio() == null) return 1;

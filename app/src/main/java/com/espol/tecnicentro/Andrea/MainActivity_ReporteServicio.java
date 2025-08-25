@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Andrea.Adapters.ReporteServicioAdapter;
-import com.espol.tecnicentro.Andrea.ReporteServiciosUC;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity_ReporteServicio extends AppCompatActivity {
 
@@ -26,7 +28,10 @@ public class MainActivity_ReporteServicio extends AppCompatActivity {
     private Spinner spMes;
     private Button btnConsultar;
     private RecyclerView rvServicios;
+    private TextView tvTotalGeneralServicio;
+
     private ReporteServicioAdapter adapter;
+    private final NumberFormat money = NumberFormat.getCurrencyInstance(new Locale("es","EC"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +42,12 @@ public class MainActivity_ReporteServicio extends AppCompatActivity {
         spMes = findViewById(R.id.spMesServicio);
         btnConsultar = findViewById(R.id.btnConsultarServicio);
         rvServicios = findViewById(R.id.rvReporteServicio);
+        tvTotalGeneralServicio = findViewById(R.id.tvTotalGeneralServicio);
 
-        List<String> meses = Arrays.asList("Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        List<String> meses = Arrays.asList(
+                "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+        );
         spMes.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, meses));
 
@@ -50,20 +58,28 @@ public class MainActivity_ReporteServicio extends AppCompatActivity {
         btnConsultar.setOnClickListener(v -> {
             String anioStr = etAnio.getText().toString().trim();
             if (anioStr.length() != 4) {
-                Toast.makeText(this, "Ingresa un año válido (YYYY).", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity_ReporteServicio.this,
+                        "Ingresa un año válido (YYYY).", Toast.LENGTH_SHORT).show();
                 return;
             }
             int anio = Integer.parseInt(anioStr);
             int mes = spMes.getSelectedItemPosition() + 1; // 1..12
 
-            // obtiene todas las órdenes serializadas (DatosBase.getListOrden())
+            // 1) obtener órdenes del sistema
             List<OrdenServicio> ordenes = OrdenServicio.obtenerOrdenes();
 
-            // genera el reporte y lo muestra
-            adapter.setDatos(ReporteServiciosUC.generar(ordenes, anio, mes));
+            // 2) generar reporte por servicio
+            List<ReporteServicio> datos = ReporteServiciosUC.generar(ordenes, anio, mes);
+            adapter.setDatos(datos);
 
-            if (adapter.getItemCount() == 0) {
-                Toast.makeText(this, "Sin datos para ese período.", Toast.LENGTH_SHORT).show();
+            // 3) total general del mes
+            double total = 0.0;
+            for (ReporteServicio r : datos) total += r.getTotal();
+            tvTotalGeneralServicio.setText("Total general: " + money.format(total));
+
+            if (datos.isEmpty()) {
+                Toast.makeText(MainActivity_ReporteServicio.this,
+                        "Sin datos para ese período.", Toast.LENGTH_SHORT).show();
             }
         });
     }
