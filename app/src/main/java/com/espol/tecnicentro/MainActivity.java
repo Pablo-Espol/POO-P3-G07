@@ -1,8 +1,9 @@
 package com.espol.tecnicentro;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -11,14 +12,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.espol.tecnicentro.Alejandro.MainActivity_Clientes;
-import com.espol.tecnicentro.Alejandro.MainActivity_Proveedores;
-import com.espol.tecnicentro.Alejandro.MainActivity_Tecnicos;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Clientes;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Proveedores;
+import com.espol.tecnicentro.Alejandro.Activities.MainActivity_Tecnico;
 import com.espol.tecnicentro.Andrea.MainActivity_FacturaEmpresarial;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteServicio;
 import com.espol.tecnicentro.Andrea.MainActivity_ReporteTecnico;
-import com.espol.tecnicentro.Pablo.App.MainActivity_Orden;
-import com.espol.tecnicentro.Pablo.App.MainActivity_Servicio;
+import com.espol.tecnicentro.Pablo.Activities.MainActivity_Orden;
+import com.espol.tecnicentro.Pablo.Activities.MainActivity_Servicio;
+import com.espol.tecnicentro.modelo.Cliente;
+import com.espol.tecnicentro.modelo.OrdenServicio;
+import com.espol.tecnicentro.modelo.Proveedor;
+import com.espol.tecnicentro.modelo.Servicio;
+import com.espol.tecnicentro.modelo.Tecnico;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        //cargamos todos los datos  en el celular(serialziados)
+        cargarDatosServicios();
+        cargarDatosOrdenes();
+        cargarDatosClientes();
+        cargarDatosTecnicos();
+        cargarDatosProveedores();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
         Button btnMainTec = findViewById(R.id.btnMainTec);
         btnMainTec.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity_Tecnicos.class);
+            Intent intent = new Intent(MainActivity.this, MainActivity_Tecnico.class);
             startActivity(intent);
         });
         Button btnMainOrden = findViewById(R.id.btnMainOrden);
@@ -80,4 +94,83 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+    private void cargarDatosServicios() {
+        boolean guardado = false;
+        try{
+            guardado = Servicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosOrdenes() {
+        boolean guardado = false;
+        try{
+            guardado = OrdenServicio.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppOrdenes", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppOrdenes", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosClientes() {
+        boolean guardado = false;
+        try{
+            guardado = Cliente.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppClientes", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppClientes", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosTecnicos() {
+        boolean guardado = false;
+        try{
+            guardado = Tecnico.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
+
+    private void cargarDatosProveedores() {
+        boolean guardado = false;
+        try{
+            guardado = Proveedor.crearDatosIniciales(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+
+        }catch (Exception e){
+            guardado = false;
+            Log.d("AppProveedor", "Error al crear los datos iniciales"+e.getMessage());
+        }
+        if (guardado) {
+            Log.d("AppProveedor", "DATOS INICIALES GUARDADOS");
+            //LEER LOS DATOS
+        }
+    }
 }

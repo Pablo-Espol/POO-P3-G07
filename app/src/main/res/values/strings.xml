@@ -1,6 +1,83 @@
 <resources>
-    <string name="app_name">Tecnicentro</string>
+
+    <!-- TITULOS-->
+
+    <string name="app_name">TECNICENTRO</string>
+    <string name="app_name_Normal">Tecnicentro</string>
+    <string name="agregar_proveedor_title">Agregar Proveedor</string>
+    <string name="ingreso_de_servicio_title">Ingreso de Servicio</string>
+    <string name="agregar_cliente">Agregar Cliente</string>
+    <string name="crear_orden_title">Crear Orden</string>
+    <string name="lista_de_ordenes_title">Lista de Ordenes</string>
+    <string name="lista_de_proveedores_title">Lista De Proveedores</string>
+    <string name="lista_de_servicios_title">Lista de Servicios</string>
+    <string name="agregar_tecnico_title">Agregar Tecnico</string>
+    <string name="lista_de_tecnicos_title">Lista de Tecnicos</string>
+
+
+    <!-- TITULOS-->
+
+    <!-- botones-->
+
     <string name="aceptarbtn">Aceptar</string>
     <string name="cancelarbtn">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="agregar_servicio">Agregar Servicio</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="clientesString">CLIENTES</string>
+    <string name="proveedoresString">PROVEEDORES</string>
+    <string name="serviciosString">SERVICIOS</string>
+    <string name="tecnicosString">TECNICOS</string>
+    <string name="ordenesString">ORDENES</string>
+    <string name="facturasString">FACTURAS</string>
+    <string name="r_tecnicoString">R. TECNICO</string>
+    <string name="r_servicioString">R. SERVICIO</string>
+    <string name="crear_orden">Crear Orden</string>
+    <string name="agregar_proveedor">Agregar Proveedor</string>
+    <string name="agregar_tecnico">Agregar Tecnico</string>
+
+
+    <!-- botones-->
+
+
+    <!-- Strings de pantalla-->
+
+
+    <string name="nombre">Nombre:</string>
+    <string name="telefono">Telefono:</string>
+    <string name="direccion">Dirección:</string>
+    <string name="identificacion">Identificación:</string>
+    <string name="tipo_cliente">Tipo Cliente:</string>
+    <string name="precio">Precio:</string>
+    <string name="descripcionProv">Descripción:</string>
+    <string name="nombre_del_servicio">Nombre del Servicio:</string>
+    <string name="identificacionCliente">ID del Cliente:</string>
+    <string name="fecha">Fecha:</string>
+    <string name="tipoVehiculo">Tipo de Vehiculo:</string>
+    <string name="placa">Placa:</string>
+    <string name="servicio">Servicio:</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="serviciosAgregados">Servicios Agregados:</string>
+    <string name="especialidad">Especialidad:</string>
+
+    <!-- Strings de pantalla-->
+
+    <!-- hints-->
+
+    <string name="ingrese_su_nombre">Ingrese el nombre</string>
+    <string name="telefonoEjemplo">Ej:0987568493</string>
+    <string name="Ej_direccion">Ej:Cdla.Abel Jorge M12 V3</string>
+    <string name="idEjemplo">Ej:123456789</string>
+    <string name="descrip">Descrip.</string>
+    <string name="EjServicio">Ej:Cambio de faro</string>
+    <string name="EjPrecio">0.0</string>
+    <string name="EjFecha">12/08/2025</string>
+    <string name="EjPlaca">ABC123</string>
+    <string name="cero">0</string>
+    <string name="EjEspecialidad">Ej:Mecanico</string>
+    <string name="version">v 1.0.0</string>
+
+    <!-- hints-->
+
 
 </resources>

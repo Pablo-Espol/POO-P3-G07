@@ -1,113 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginTop="30dp">
+    android:fillViewport="true">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-  <!-- Título de la empresa -->
-
-  <ImageView
-      android:id="@+id/imageView"
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/lottie_background_view"
       android:layout_width="match_parent"
-      android:layout_height="46dp"
-      app:srcCompat="@drawable/icon_logo" />
+      android:layout_height="match_parent"
+      app:lottie_fileName="circulo.json"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      android:scaleType="centerCrop"
+      android:alpha="0.7"
+      />
 
-  <TextView
-      android:id="@+id/txtTituloEmpresa"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="50dp"
-      android:text="TECNICENTRO"
-      android:textColor="@android:color/black"
-      android:textSize="24sp"
-      android:textStyle="bold" />
-
-  <GridLayout
+  <LinearLayout
+      android:id="@+id/main"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:alignmentMode="alignMargins"
-      android:columnCount="2"
-      android:padding="16dp"
-      android:rowCount="4"
-      android:rowOrderPreserved="false">
+      android:layout_height="match_parent"
+      android:layout_marginTop="30dp"
+      android:layout_marginBottom="15dp"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnMainClient"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/icon_logo" />
+
+    <TextView
+        android:id="@+id/txtTituloEmpresa"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_persona"
-        android:text="CLIENTES" />
+        android:layout_marginBottom="25dp"
+        android:text="@string/app_name"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnMainProv"
-        android:layout_width="0dp"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="623dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:rowCount="4"
+        android:rowOrderPreserved="false">
+
+      <Button
+          android:id="@+id/btnMainClient"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_persona"
+          android:text="@string/clientesString" />
+
+      <Button
+          android:id="@+id/btnMainProv"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_proveedor"
+          android:text="@string/proveedoresString" />
+
+      <Button
+          android:id="@+id/btnMainServ"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_servicio"
+          android:text="@string/serviciosString" />
+
+      <Button
+          android:id="@+id/btnMainTec"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_tecnico"
+          android:text="@string/tecnicosString" />
+
+      <Button
+          android:id="@+id/btnMainOrden"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_orden"
+          android:text="@string/ordenesString" />
+
+      <Button
+          android:id="@+id/btnMainFact"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_factura"
+          android:text="@string/facturasString" />
+
+      <Button
+          android:id="@+id/btnMainRTec"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_rtecnico"
+          android:text="@string/r_tecnicoString" />
+
+      <Button
+          android:id="@+id/btnMainRServ"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_margin="8dp"
+          android:drawableTop="@drawable/icon_rservicio"
+          android:text="@string/r_servicioString" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_proveedor"
-        android:text="PROVEEDOR" />
+        android:gravity="center"
+        android:text="@string/version"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnMainServ"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_servicio"
-        android:text="SERVICIO" />
+  </LinearLayout>
 
-    <Button
-        android:id="@+id/btnMainTec"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_tecnico"
-        android:text="TECNICO" />
-
-    <Button
-        android:id="@+id/btnMainOrden"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_orden"
-        android:text="ORDEN" />
-
-    <Button
-        android:id="@+id/btnMainFact"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_factura"
-        android:text="FACTURA" />
-
-    <Button
-        android:id="@+id/btnMainRTec"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_rtecnico"
-        android:text="R. TECNICO" />
-
-    <Button
-        android:id="@+id/btnMainRServ"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_margin="8dp"
-        android:drawableTop="@drawable/icon_rservicio"
-        android:text="R. SERVICIO" />
-
-  </GridLayout>
-</LinearLayout>
+</FrameLayout>
+</ScrollView>

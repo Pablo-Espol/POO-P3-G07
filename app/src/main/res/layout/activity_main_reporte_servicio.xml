@@ -1,19 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Andrea.MainActivity_ReporteServicio">
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvTituloReporteServicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REPORTE SERV"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Reporte por Servicio"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/etAnioServicio"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:hint="Año (e.g. 2025)"
+        android:inputType="number"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloReporteServicio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/spMesServicio"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <Spinner
+        android:id="@+id/spMesServicio"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloReporteServicio"
+        app:layout_constraintStart_toEndOf="@id/etAnioServicio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <Button
+        android:id="@+id/btnConsultarServicio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Consultar"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/spMesServicio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvReporteServicio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnConsultarServicio"
+        app:layout_constraintBottom_toTopOf="@id/tvTotalGeneralServicio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvTotalGeneralServicio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Total general: $0.00"
+        android:textStyle="bold"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

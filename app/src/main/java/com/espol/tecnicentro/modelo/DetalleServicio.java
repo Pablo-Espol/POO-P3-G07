@@ -1,6 +1,8 @@
 package com.espol.tecnicentro.modelo;
 
-public class DetalleServicio {
+import java.io.Serializable;
+
+public class DetalleServicio implements Serializable {
     private int cantidad;
     private Servicio servicio;
     private double subtotal;
@@ -10,6 +12,11 @@ public class DetalleServicio {
         this.cantidad = cantidad;
         this.servicio = servicio;
         this.subtotal = subtotal;
+    }
+    public DetalleServicio(int cantidad, Servicio servicio) {
+        this.cantidad = cantidad;
+        this.servicio = servicio;
+
     }
 
     public DetalleServicio(int cantidad, double subtotal){
@@ -40,7 +47,9 @@ public class DetalleServicio {
 
 
     public double getSubtotal() {
-        return subtotal;
+
+
+        return  cantidad * servicio.getPrecio();
     }
 
 

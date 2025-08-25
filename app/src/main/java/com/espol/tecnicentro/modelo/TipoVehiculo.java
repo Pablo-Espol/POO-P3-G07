@@ -4,11 +4,13 @@
  */
 package com.espol.tecnicentro.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fmalu
  */
-public enum TipoVehiculo {
+public enum TipoVehiculo implements Serializable {
     VEHICULO,
     MOTOCICLETA,
     BUS

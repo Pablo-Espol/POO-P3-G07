@@ -7,30 +7,16 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_name_Normal"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tecnicentro">
+        android:theme="@style/Theme.Tecnicentro"
+        android:windowSoftInputMode="adjustResize">
         <activity
-            android:name=".Pablo.App.MainActivity_Orden"
+            android:name=".Andrea.ReporteServicio"
             android:exported="false" />
         <activity
-            android:name=".Andrea.MainActivity_ReporteTecnico"
-            android:exported="false" />
-        <activity
-            android:name=".Andrea.MainActivity_ReporteServicio"
-            android:exported="false" />
-        <activity
-            android:name=".Andrea.MainActivity_FacturaEmpresarial"
-            android:exported="false" />
-        <activity
-            android:name=".Alejandro.MainActivity_Tecnicos"
-            android:exported="false" />
-        <activity
-            android:name=".Alejandro.MainActivity_Proveedores"
-            android:exported="false" />
-        <activity
-            android:name=".Alejandro.MainActivity_Clientes"
+            android:name=".Andrea.GenerarFacturaActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -42,17 +28,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pablo.App.agg_servicio"
+            android:name=".Pablo.Activities.Crear_orden"
             android:exported="false" />
         <activity
-            android:name=".Pablo.App.MainActivity_Servicio"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:name=".Pablo.Activities.Activity_detalleServicio"
+            android:exported="false" />
+        <activity
+            android:name=".Pablo.Activities.MainActivity_Orden"
+            android:exported="false" />
+        <activity
+            android:name=".Andrea.MainActivity_ReporteTecnico"
+            android:exported="false" />
+        <activity
+            android:name=".Andrea.MainActivity_ReporteServicio"
+            android:exported="false" />
+        <activity
+            android:name=".Andrea.MainActivity_FacturaEmpresarial"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.MainActivity_Tecnico"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.MainActivity_Proveedores"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.Agg_Proveedores"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.MainActivity_Clientes"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.Agg_Cliente"
+            android:exported="false" />
+        <activity
+            android:name=".Alejandro.Activities.Agg_Tecnico"
+            android:exported="false" />
+        <activity
+            android:name=".Pablo.Activities.Agg_servicio"
+            android:exported="false" />
+        <activity
+            android:name=".Pablo.Activities.MainActivity_Servicio"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -11,24 +12,28 @@
         android:id="@+id/tvTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar Servicio"
+        android:text="Servicio"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvNombreServicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre del Servicio"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText"/>
 
     <EditText
         android:id="@+id/etNuevoPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:hint="Nuevo precio"
         android:inputType="numberDecimal"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        tools:ignore="HardcodedText"/>
 
     <Button
         android:id="@+id/btnGuardar"
@@ -36,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/colorprimary_dark"
-        android:text="Guardar Cambios"
+        android:text="@string/guardar"
         android:enabled="true"/>
 
 </LinearLayout>

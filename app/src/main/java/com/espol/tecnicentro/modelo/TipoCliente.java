@@ -4,11 +4,13 @@
  */
 package com.espol.tecnicentro.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Fmalu
  */
-public enum TipoCliente {
+public enum TipoCliente implements Serializable {
     PERSONAL,
     EMPRESARIAL
     

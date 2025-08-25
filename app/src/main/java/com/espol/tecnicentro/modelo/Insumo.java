@@ -1,12 +1,13 @@
 
 package com.espol.tecnicentro.modelo;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Fmalu
  */
-public class Insumo {
+public class Insumo implements Serializable {
     
     private String descripcion;
     private LocalDate fechaRegistro;

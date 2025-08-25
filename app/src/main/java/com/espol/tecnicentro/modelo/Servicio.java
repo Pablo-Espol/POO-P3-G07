@@ -1,5 +1,7 @@
 
 package com.espol.tecnicentro.modelo;
+import com.espol.tecnicentro.ListaBase.DatosBase;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,7 +17,6 @@ import java.util.*;
  */
 public class Servicio implements Serializable {
     public static final String nomArchivo = "Servicios.ser";
-    public static int ultimoId = 0;
     private String codigo,nombre;
     private double precio;
 
@@ -77,24 +78,13 @@ public class Servicio implements Serializable {
 
 
     public static ArrayList<Servicio> obtenerServicio(){
-        ArrayList<Servicio> listService = new ArrayList<>();
 
-
-        listService.add(new Servicio("001", "Reparación de motores", 90.0));
-        listService.add(new Servicio("002", "Instalación de software", 80.0));
-        listService.add(new Servicio("003", "Mantenimiento preventivo", 40.0));
-        listService.add(new Servicio("004", "Balanceo y alineación", 70.0));
-        listService.add(new Servicio("005", "Cambio de neumaticos", 60.0));
-        listService.add(new Servicio("006", "Cambio de aceite", 30.0));
-        return  listService;
+        return  DatosBase.getInstance().getListService();
     }
 
     @Override
     public String toString() {
-        return
-                " codigo='" + getCodigo() + "'" +
-                ", nombre='" + getNombre() + "'" +
-                ", precio='" + getPrecio() + "'";
+        return getNombre();
     }
 
     //lee el archivo donde se encuentran los datos
@@ -116,15 +106,8 @@ public class Servicio implements Serializable {
     }
 
     public static boolean crearDatosIniciales(File directorio) throws Exception{
-        ArrayList<Servicio> lista = new ArrayList<>();
+        ArrayList<Servicio> lista = DatosBase.getInstance().getListService();
         boolean guardado = false;
-
-        lista.add(new Servicio("001", "Reparación de motores", 90.0));
-        lista.add(new Servicio("002", "Instalación de software", 80.0));
-        lista.add(new Servicio("003", "Mantenimiento preventivo", 40.0));
-        lista.add(new Servicio("004", "Balanceo y alineación", 70.0));
-        lista.add(new Servicio("005", "Cambio de neumaticos", 60.0));
-        lista.add(new Servicio("006", "Cambio de aceite", 30.0));
 
         File f = new File(directorio, nomArchivo);
         if (lista.isEmpty()) {
