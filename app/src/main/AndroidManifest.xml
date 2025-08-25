@@ -31,7 +31,7 @@
             android:name=".Pablo.Activities.Crear_orden"
             android:exported="false" />
         <activity
-            android:name=".Pablo.Activities.Activity_detalleServicio"
+            android:name=".Pablo.Activities.Activity_Detalle_Orden"
             android:exported="false" />
         <activity
             android:name=".Pablo.Activities.MainActivity_Orden"

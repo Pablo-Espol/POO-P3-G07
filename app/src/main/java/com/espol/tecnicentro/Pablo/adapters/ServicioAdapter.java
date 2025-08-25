@@ -1,14 +1,12 @@
 package com.espol.tecnicentro.Pablo.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.R;
@@ -52,6 +50,8 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
                 .inflate(R.layout.item_servicio, parent, false);
         return new ViewHolder(vista);
     }
+
+    //lo que se va a mostrar en cada item de servicio
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {

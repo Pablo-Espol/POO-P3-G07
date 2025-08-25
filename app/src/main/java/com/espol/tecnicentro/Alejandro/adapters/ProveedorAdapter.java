@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.espol.tecnicentro.Alejandro.adapters.*;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.modelo.Cliente;
 import com.espol.tecnicentro.modelo.Proveedor;
 
 import java.util.List;

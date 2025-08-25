@@ -55,6 +55,7 @@ public class Agg_servicio extends AppCompatActivity {
         String nameServ= idServicio_agg.getText().toString();
         double valorSer= Double.parseDouble(idPrecio_agg.getText().toString());
 
+        //cargamos la lista externa agregamos el servicio y serializamos
         ArrayList<Servicio> listaServicios = Servicio.cargarServicio(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
         if (listaServicios == null) {
@@ -81,14 +82,12 @@ public class Agg_servicio extends AppCompatActivity {
             listaPrincipal= DatosBase.getInstance().getListService();
             listaPrincipal.add(nuevoServicio);
             Servicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
-            Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Servicio Agregado", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.d("AppServicio", "Error al guardar datos: " + e.getMessage());
         }
 
         finish();
     }
-
-
 
 }

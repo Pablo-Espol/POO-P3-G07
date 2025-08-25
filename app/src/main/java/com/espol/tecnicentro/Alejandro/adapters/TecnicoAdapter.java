@@ -20,15 +20,10 @@ import java.util.List;
 public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.ViewHolder> {
     private List<Tecnico> tecnicoList;
     private Activity activity;
-    private OnTecnicoEditClickListener listener;
 
     public TecnicoAdapter(List<Tecnico> tecnicoList, Activity activity) {
         this.tecnicoList = tecnicoList;
         this.activity = activity;
-    }
-
-    public interface OnTecnicoEditClickListener {
-        void onEditClick(Tecnico tecnico, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

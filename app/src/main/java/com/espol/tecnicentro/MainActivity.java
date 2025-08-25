@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        //cargamos todos los datos  en el celular(serialziados)
+        //Cargamos todos los datos Iniciales en el celular(serializados)
         cargarDatosServicios();
         cargarDatosOrdenes();
         cargarDatosClientes();
@@ -48,43 +48,50 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        // Configuracion de los botones del Menú
+        //SERVICIOS
         Button btnMainServ = findViewById(R.id.btnMainServ);
         btnMainServ.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Servicio.class);
             startActivity(intent);
         });
-
+        //CLIENTES
         Button btnMainClient = findViewById(R.id.btnMainClient);
         btnMainClient.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Clientes.class);
             startActivity(intent);
         });
+        //PROVEEDORES
         Button btnMainProv = findViewById(R.id.btnMainProv);
         btnMainProv.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Proveedores.class);
             startActivity(intent);
         });
+        //TECNICOS
         Button btnMainTec = findViewById(R.id.btnMainTec);
         btnMainTec.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Tecnico.class);
             startActivity(intent);
         });
+        //ORDENES
         Button btnMainOrden = findViewById(R.id.btnMainOrden);
         btnMainOrden.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_Orden.class);
             startActivity(intent);
         });
+        //FACTURAS
         Button btnMainFact = findViewById(R.id.btnMainFact);
         btnMainFact.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_FacturaEmpresarial.class);
             startActivity(intent);
         });
+        //REPORTE DE SERVICIOS
         Button btnMainRServ = findViewById(R.id.btnMainRServ);
         btnMainRServ.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_ReporteServicio.class);
             startActivity(intent);
         });
+        //REPORTE DE TECNICOS
         Button btnMainRTec = findViewById(R.id.btnMainRTec);
         btnMainRTec.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, MainActivity_ReporteTecnico.class);
@@ -94,11 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
+//METODOS PARA PRECARGAR LOS DATOS INICIALES
     private void cargarDatosServicios() {
         boolean guardado = false;
         try{
@@ -151,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
 
         }catch (Exception e){
             guardado = false;
-            Log.d("AppServicios", "Error al crear los datos iniciales"+e.getMessage());
+            Log.d("AppTecnicos", "Error al crear los datos iniciales"+e.getMessage());
         }
         if (guardado) {
-            Log.d("AppServicios", "DATOS INICIALES GUARDADOS");
+            Log.d("AppTecnicos", "DATOS INICIALES GUARDADOS");
             //LEER LOS DATOS
         }
     }

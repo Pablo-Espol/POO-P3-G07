@@ -27,7 +27,7 @@ public class MainActivity_Tecnico extends AppCompatActivity
     private RecyclerView recyclerViewTecnico;
     private TecnicoAdapter tecnicoAdapter;
     private ArrayList<Tecnico> listaTecnicos = new ArrayList<>();
-    private File dir; // misma ruta que usas en todos lado
+    private File dir; // ruta a usar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class MainActivity_Tecnico extends AppCompatActivity
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_tecnicos);
 
+        //extraemos la ruta donde se encuentra la lista
         dir = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
 
         // Asegura que exista el archivo la primera vez (no sobrescribe si ya existe)
@@ -45,7 +46,7 @@ public class MainActivity_Tecnico extends AppCompatActivity
         recyclerViewTecnico = findViewById(R.id.recyclerViewTecnico);
         recyclerViewTecnico.setLayoutManager(new LinearLayoutManager(this));
 
-        cargarDesdeArchivoYConfigurarAdapter();
+        llenarLista();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -60,11 +61,12 @@ public class MainActivity_Tecnico extends AppCompatActivity
         });
     }
 
-    private void cargarDesdeArchivoYConfigurarAdapter() {
+    private void llenarLista() {
         listaTecnicos = Tecnico.cargarTecnico(dir);
         if (listaTecnicos == null) listaTecnicos = new ArrayList<>();
         Log.d("AppTecnico", "Cargados " + listaTecnicos.size() + " técnicos desde: " + new File(dir, Tecnico.nomArchivoTec).getAbsolutePath());
 
+        //configuramos el adaptador y lo que se mostrará
         tecnicoAdapter = new TecnicoAdapter(listaTecnicos, this);
         recyclerViewTecnico.setAdapter(tecnicoAdapter);
     }

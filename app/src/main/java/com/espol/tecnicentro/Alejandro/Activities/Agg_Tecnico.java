@@ -40,19 +40,23 @@ public class Agg_Tecnico extends AppCompatActivity {
         editTextNombre = findViewById(R.id.editTextText);
         editTextTelefono = findViewById(R.id.editTextPhone4);
         editTextEspecialidad = findViewById(R.id.editTextText2);
-
         buttonGuardar = findViewById(R.id.btnaggTec);
 
+
+        //configuracion del boton de guardar
         buttonGuardar.setOnClickListener(v -> {
             String id = editTextIdentificacion.getText().toString().trim();
             String nombre = editTextNombre.getText().toString().trim();
             String telefono = editTextTelefono.getText().toString().trim();
             String especialidad = editTextEspecialidad.getText().toString().trim();
 
+            //verifica que los campos esten llenos
             if(id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || especialidad.isEmpty()){
                 Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            //carga la lista externa para agregar tecnico, guardar y serializar
             ArrayList<Tecnico> listaTecnicos = Tecnico.cargarTecnico(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
 
             if (listaTecnicos == null) {
@@ -61,12 +65,10 @@ public class Agg_Tecnico extends AppCompatActivity {
 
             Tecnico nuevoTecnico= new Tecnico(id,nombre,telefono,especialidad);
             try {
-
                 listaPrincipal= DatosBase.getInstance().getListTecni();
                 listaPrincipal.add(nuevoTecnico);
                 Tecnico.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
-
-                Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Técnico Agregado", Toast.LENGTH_SHORT).show();
 
             }catch (Exception e){
                 Log.d("AppTecnico", "Error al guardar datos: " + e.getMessage());

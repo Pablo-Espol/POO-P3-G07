@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.espol.tecnicentro.Pablo.adapters.OrdenAdapter;
 import com.espol.tecnicentro.R;
-import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 
 import java.util.ArrayList;
@@ -27,8 +26,6 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
     private OrdenAdapter ordenAdapter;
 
     private ArrayList<OrdenServicio> listaOrdenes;
-
-    private DatosBase datosBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,7 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
             return insets;
         });
 
-
+        //Viajamos al activity crear Orden
         Button btnCrearOrden = findViewById(R.id.btnCrearOrden);
 
         btnCrearOrden.setOnClickListener(view -> {
@@ -53,12 +50,13 @@ public class MainActivity_Orden extends AppCompatActivity implements OrdenAdapte
     @Override
     public void onDetailsClick(OrdenServicio orden, int position) {
         // Envia a la activity de esa orden
-        Intent intent = new Intent(this, Activity_detalleServicio.class);
+        Intent intent = new Intent(this, Activity_Detalle_Orden.class);
         intent.putExtra("CadaOrden", orden);
         startActivity(intent);
 
     }
 
+    //metodo para llenar el recycler view constantemente en el onResume
     private void llenarLista(){
         recyclerViewOrden = findViewById(R.id.recyclerViewOrden);
         recyclerViewOrden.setLayoutManager(new LinearLayoutManager(this));

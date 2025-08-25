@@ -17,14 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="31dp" />
+            app:layout_constraintGuide_begin="20dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="31dp" />
+            app:layout_constraintGuide_end="20dp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -54,7 +54,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewOrden"
             android:layout_width="331dp"
-            android:layout_height="523dp"
+            android:layout_height="711dp"
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintHorizontal_bias="0.473"

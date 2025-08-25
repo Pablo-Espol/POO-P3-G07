@@ -54,8 +54,8 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="68dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="56dp"
             android:text="@string/tipo_cliente"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -101,8 +101,8 @@
 
         <Spinner
             android:id="@+id/spidCliente_Orden"
-            android:layout_width="130dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/edittext_border"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -191,7 +191,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewCOrden"
             android:layout_width="319dp"
-            android:layout_height="214dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
@@ -214,7 +214,7 @@
             android:background="@drawable/edittext_border"
             android:ems="10"
             android:hint="@string/EjPlaca"
-            android:inputType="text"
+            android:inputType="textCapCharacters"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 

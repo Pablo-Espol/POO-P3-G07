@@ -1,15 +1,13 @@
 package com.espol.tecnicentro.Alejandro.adapters;
-import android.app.Activity;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.espol.tecnicentro.Alejandro.adapters.ClienteAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.modelo.Cliente;
 
@@ -26,7 +24,6 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView idCliente,nombre,direccion,phone,tipocliente;
-        Button btneditClient;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -45,6 +42,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
         return new ViewHolder(vista);
     }
 
+    //Configuramos los que se va a mostrar en cada item del recycler view
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Cliente cliente = clienteList.get(position);

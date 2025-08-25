@@ -12,10 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- *
- * @author Fmalu
- */
+
 public class Cliente extends Personal implements Serializable {
     private TipoCliente tipoCliente;
     public static final String nomArchivoCl = "Clientes.ser";
@@ -36,8 +33,9 @@ public class Cliente extends Personal implements Serializable {
 
    @Override
     public String toString() {
-        return getIdentificacion();
+        return getIdentificacion()+" - "+getNombre();
     }
+
     public static ArrayList<Cliente> cargarClientes(File directorio){
         ArrayList<Cliente> lista = new ArrayList<>();
         File f = new File(directorio, nomArchivoCl);

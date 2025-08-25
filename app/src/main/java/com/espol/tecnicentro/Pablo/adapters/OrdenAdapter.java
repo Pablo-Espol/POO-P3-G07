@@ -50,6 +50,7 @@ public class OrdenAdapter extends RecyclerView.Adapter<OrdenAdapter.ViewHolder>{
         return new ViewHolder(vista);
     }
 
+    //lo que se va a mostrar en cada item de orden
     @Override
     public void onBindViewHolder( OrdenAdapter.ViewHolder holder, int position) {
         OrdenServicio ordenS = listaOrdenes.get(position);

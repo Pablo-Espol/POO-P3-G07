@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,6 +64,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         //datos identificados
         spidCliente_Orden = findViewById(R.id.spidCliente_Orden);
         idPlaca_Orden = findViewById(R.id.idPlaca_Orden);
+        idPlaca_Orden.setFilters(new InputFilter[]{new InputFilter.AllCaps()});//Forzamos a usar mayusculas
         sp_TipoV = findViewById(R.id.sp_TipoV);
         spTipo = findViewById(R.id.spTipo);
         sp_Tipo_Serv = findViewById(R.id.sp_Tipo_Serv);
@@ -93,7 +95,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         //llamar metodo llenar lista
         llenarLista();
 
-        // **CAMBIOS APLICADOS A CONTINUACIÓN**
+
 
         // Spinner de Tipo cliente-----------------------
         // Este se llena primero para que esté listo cuando el otro Spinner lo necesite.
@@ -108,22 +110,21 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         }
 
         // Spinner de ID Clientes---------------
-        List<Cliente> listaClientes = DatosBase.getInstance().getListClient();
+        List<Cliente> listaClientes = new ArrayList<>(DatosBase.getInstance().getListClient());
 
-        Cliente clienteVacio = new Cliente("Seleccione un Cliente", "", "", "", null);
-
-        // Agrega el cliente "dummy o vacio" al inicio de la lista
-        listaClientes.add(0, clienteVacio);
+        // siempre añadimos un cliente "dummy" en la posición 0 solo para el spinner
+        listaClientes.add(0, new Cliente("Seleccione un Cliente", "", "", "", null));
 
         if (spidCliente_Orden != null) {
             ArrayAdapter<Cliente> adapterClientes = new ArrayAdapter<>(
                     this,
-                    android.R.layout.simple_spinner_item,listaClientes
-
+                    android.R.layout.simple_spinner_item,
+                    listaClientes
             );
             adapterClientes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spidCliente_Orden.setAdapter(adapterClientes);
         }
+
 
         // Listener para el Spinner de ID de cliente
         spidCliente_Orden.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -135,7 +136,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
                 // Si el cliente no es nulo, obtenemos su TipoCliente
                 if (clienteSeleccionado != null) {
                     TipoCliente tipoDelCliente = clienteSeleccionado.getTipoCliente();
-                    // Llama al nuevo método para seleccionar y bloquear el Spinner de TipoCliente
+                    // Llama al nuevo metodo para seleccionar y bloquear el Spinner de TipoCliente
                     seleccionarYBloquearSpinnerTipo(tipoDelCliente);
                 }
             }
@@ -228,7 +229,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
                 listaPrincipal.add(nuevaOrden);
                 Log.d("AppOrdenes", nuevaOrden.toString());
                 OrdenServicio.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
-                Toast.makeText(getApplicationContext(), "Orden Creada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Orden de Servicios Creada", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d("AppOrdenes", "Error al guardar datos: " + e.getMessage());
             }
@@ -293,6 +294,7 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         return tecnicosDisponibles.get(random.nextInt(tecnicosDisponibles.size()));
     }
 
+    //metodo para calcular el total de la orden
     private double calcularTotalOrden(ArrayList<DetalleServicio> listdetalles) {
         double total = 0.0;
         for (DetalleServicio detalle : listdetalles) {
@@ -301,30 +303,28 @@ public class Crear_orden extends AppCompatActivity implements Crear_Orden_Adapte
         return total;
     }
 
+    //metodo para verficar que los campos esten llenos
     private boolean verificacionDeCampos() {
+        if (spidCliente_Orden.getSelectedItemPosition() == 0) {
+            Toast.makeText(this, "Debe seleccionar un cliente.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (idFecha_Orden.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Debe seleccionar la fecha de servicio.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (sp_TipoV.getSelectedItem() == null) {
+            Toast.makeText(this, "Debe seleccionar un tipo de vehículo.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (idPlaca_Orden.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "La placa del vehículo es obligatoria.", Toast.LENGTH_SHORT).show();
             idPlaca_Orden.requestFocus();
             return false;
         }
 
-        if (idFecha_Orden.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Debe seleccionar la fecha de servicio.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (spidCliente_Orden.getSelectedItem() == null) {
-            Toast.makeText(this, "Debe seleccionar un cliente.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         if (spTipo.getSelectedItem() == null) {
             Toast.makeText(this, "Debe seleccionar un tipo de cliente.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (sp_TipoV.getSelectedItem() == null) {
-            Toast.makeText(this, "Debe seleccionar un tipo de vehículo.", Toast.LENGTH_SHORT).show();
             return false;
         }
 

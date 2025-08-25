@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import com.espol.tecnicentro.Alejandro.adapters.ClienteAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Cliente;
-import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
 
@@ -43,7 +41,7 @@ public class MainActivity_Clientes extends AppCompatActivity {
             return insets;
         });
 
-        //viajamos a la pantalla de Agregar servicios
+        //Viajamos a la pantalla de Agregar Clientes
         Button btnaggClient = findViewById(R.id.btnaggClient);
 
         btnaggClient.setOnClickListener(view -> {
@@ -52,11 +50,13 @@ public class MainActivity_Clientes extends AppCompatActivity {
         });
 
     }
+
+    //Metodo para llenar el recyclerview constantemente utilizado en OnResume
     private void llenarLista(){
         recyclerViewClient = findViewById(R.id.recyclerViewClient);
         recyclerViewClient.setLayoutManager(new LinearLayoutManager(this));
 
-        //Configuramos el adaptador
+        //Configuramos el adaptador y deserializacion
         try{
             listaClientes = Cliente.cargarClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
             Log.d("AppServicios","Datos leidos desde el archivo");
@@ -65,10 +65,12 @@ public class MainActivity_Clientes extends AppCompatActivity {
             Log.d("AppServicio", "Error al cargar datos"+e.getMessage());
         }
 
+
         clienteAdapter = new ClienteAdapter(listaClientes, this);
         recyclerViewClient.setAdapter(clienteAdapter);
     }
 
+    //Encargado de mostras "algo" constantemente en la pantalla
     @Override
     public void onResume(){
         super.onResume();

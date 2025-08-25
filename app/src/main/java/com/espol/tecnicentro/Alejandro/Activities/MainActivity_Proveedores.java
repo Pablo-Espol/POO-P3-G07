@@ -19,7 +19,6 @@ import com.espol.tecnicentro.Alejandro.adapters.ProveedorAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.ListaBase.DatosBase;
 import com.espol.tecnicentro.modelo.Proveedor;
-import com.espol.tecnicentro.modelo.Servicio;
 
 import java.util.ArrayList;
 
@@ -46,11 +45,13 @@ public class MainActivity_Proveedores extends AppCompatActivity{
             startActivity(intent);
         });
     }
+
+    //Metodo para llenar el recyclerview constantemente utilizado en OnResume
     private void llenarLista(){
         recyclerViewProveedor = findViewById(R.id.recyclerViewProveedor);
         recyclerViewProveedor.setLayoutManager(new LinearLayoutManager(this));
 
-        //Configuramos el adaptador
+        //Configuramos el adaptador y deserializacion
         try{
             listaProveedores = Proveedor.cargaProveedores(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
             Log.d("AppProveedor","Datos leidos desde el archivo");
@@ -62,6 +63,7 @@ public class MainActivity_Proveedores extends AppCompatActivity{
         recyclerViewProveedor.setAdapter(proveedorAdapter);
     }
 
+    //Encargado de mostras "algo" constantemente en la pantalla
     @Override
     protected void onResume() {
         super.onResume();

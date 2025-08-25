@@ -8,7 +8,7 @@
     <string name="ingreso_de_servicio_title">Ingreso de Servicio</string>
     <string name="agregar_cliente">Agregar Cliente</string>
     <string name="crear_orden_title">Crear Orden</string>
-    <string name="lista_de_ordenes_title">Lista de Ordenes</string>
+    <string name="lista_de_ordenes_title">Ordenes de Servicios</string>
     <string name="lista_de_proveedores_title">Lista De Proveedores</string>
     <string name="lista_de_servicios_title">Lista de Servicios</string>
     <string name="agregar_tecnico_title">Agregar Tecnico</string>

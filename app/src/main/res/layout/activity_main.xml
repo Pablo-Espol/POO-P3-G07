@@ -48,7 +48,7 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="623dp"
+        android:layout_height="411dp"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
         android:padding="16dp"
@@ -128,15 +128,6 @@
           android:text="@string/r_servicioString" />
 
     </GridLayout>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/version"
-        android:textAllCaps="true"
-        android:textStyle="bold" />
 
   </LinearLayout>
 

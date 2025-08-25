@@ -17,7 +17,7 @@ import com.espol.tecnicentro.Pablo.adapters.EseServicioAdapter;
 import com.espol.tecnicentro.R;
 import com.espol.tecnicentro.modelo.OrdenServicio;
 
-public class Activity_detalleServicio extends AppCompatActivity  {
+public class Activity_Detalle_Orden extends AppCompatActivity  {
 
     private TextView idClientO,idNombreO,idTClientO,idFechaO,idTVehiculoO,idPlacaO,idtotalO;
     private RecyclerView recyclerViewO;
@@ -43,7 +43,7 @@ public class Activity_detalleServicio extends AppCompatActivity  {
 
         esaOrden = (OrdenServicio) getIntent().getSerializableExtra("CadaOrden");
 
-
+        //colocamos cada valor en us respectivo textview
         if (esaOrden!=null){
             idClientO.setText(esaOrden.getCliente().getIdentificacion());
             idNombreO.setText(esaOrden.getCliente().getNombre());

@@ -49,6 +49,7 @@ public class Crear_Orden_Adapter extends RecyclerView.Adapter<Crear_Orden_Adapte
         return new Crear_Orden_Adapter.ViewHolder(vista);
     }
 
+    //lo que se va a mostrar en el item de cada servicio de la orden a generar
     @Override
     public void onBindViewHolder( Crear_Orden_Adapter.ViewHolder holder, int position) {
         DetalleServicio DServicio = listaDetalleServicio.get(position);
@@ -56,7 +57,7 @@ public class Crear_Orden_Adapter extends RecyclerView.Adapter<Crear_Orden_Adapte
         holder.tvCantidadServ.setText("Cantidad: "+ DServicio.getCantidad());
         holder.tvSubtotalServ.setText("Subtotal: $" + DServicio.getSubtotal());
 
-        // Manejar el clic en el botón de Mas detalles
+        // Manejar el clic en el botón de Eliminar
 
         holder.btnEliminarSer.setOnClickListener(v ->{
             if (listener !=null){

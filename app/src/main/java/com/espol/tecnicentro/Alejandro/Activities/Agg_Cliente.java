@@ -47,41 +47,40 @@ public class Agg_Cliente extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         button = findViewById(R.id.button);
 
-
+        //configuracion de spinner
         String [] opciones= { "PERSONAL", "EMPRESARIAL"};
 
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,opciones);
         spinner.setAdapter(adapter);
 
+        //configuracion de boton de guardar cliente
         button.setOnClickListener(view -> {
 
-
+            //verifica que todos los campos esten llenos
             if (editTextIdentificacion.getText().toString().isEmpty() ||editTextIdentificacion.getText().toString().isEmpty()||editTextTelefono.getText().toString().isEmpty()||editTextDireccion.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-
+            //gettea los item que ingresa el usuario
             String nameId= editTextIdentificacion.getText().toString();
             String nameCli= editTextNombre.getText().toString();
             String nameTel= editTextTelefono.getText().toString();
             String nameDir= editTextDireccion.getText().toString();
             TipoCliente nameTipo= spinner.getSelectedItem().toString().equals("PERSONAL")?TipoCliente.PERSONAL:TipoCliente.EMPRESARIAL;
 
+            //carga la lista de clientes para actualizarla y serializarla
             ArrayList<Cliente> listaClientes = Cliente.cargarClientes(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
-
             if (listaClientes == null) {
                 listaClientes = new ArrayList<>();
             }
-
             Cliente nuevoCliente = new Cliente(nameId,nameCli,nameTel,nameDir,nameTipo);
-
             try {
                 Log.d("AppCliente", nuevoCliente.toString());
                 listaPrincipal= DatosBase.getInstance().getListClient();
                 listaPrincipal.add(nuevoCliente);
                 Cliente.guardarLista(this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), listaPrincipal);
-                Toast.makeText(getApplicationContext(), "Datos guardados", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Cliente Agregado", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Log.d("AppCliente", "Error al guardar datos: " + e.getMessage());
             }

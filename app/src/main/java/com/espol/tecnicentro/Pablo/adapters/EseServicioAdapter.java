@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +44,7 @@ public class EseServicioAdapter extends RecyclerView.Adapter<EseServicioAdapter.
         return new ViewHolder(vista);
     }
 
+    //lo que se mostrara en el item de cada servicio  y su subtotal en el Activity_detalle_orden
     @Override
     public void onBindViewHolder(@NonNull EseServicioAdapter.ViewHolder holder, int position) {
 
